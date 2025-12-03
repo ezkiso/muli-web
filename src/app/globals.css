@@ -34,56 +34,51 @@ select {
   font-size: 16px;
 }
 
-/* Definir las keyframes para la animación del carrusel */
+/* Animación del carrusel - Loop infinito */
 @keyframes marquee {
   0% {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(calc(-180px * 6));
+    transform: translateX(-50%);
   }
 }
 
+/* Aplicar la animación */
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+  display: flex;
+  will-change: transform;
+}
+
+/* Pausar animación al hacer hover */
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Ajustes para móvil */
+@media (max-width: 768px) {
+  .animate-marquee {
+    animation-duration: 20s;
+  }
+}
+
+/* Animación reversa (si la necesitas) */
 @keyframes marquee-reverse {
   0% {
     transform: translateX(-50%);
   }
   100% {
-    transform: translateX(0%);
+    transform: translateX(0);
   }
 }
 
-/* Pausar animación al hacer hover */
-.animate-marquee:hover,
+.animate-marquee-reverse {
+  animation: marquee-reverse 30s linear infinite;
+  display: flex;
+  will-change: transform;
+}
+
 .animate-marquee-reverse:hover {
   animation-play-state: paused;
-}
-
-/* Ajustes SOLO para móvil */
-@media (max-width: 768px) {
-  @keyframes marquee {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(calc(-150px * 6));
-    }
-  }
-  
-  @keyframes marquee-reverse {
-    0% {
-      transform: translateX(-50%);
-    }
-    100% {
-      transform: translateX(0%);
-    }
-  }
-  
-  .animate-marquee {
-    animation-duration: 25s;
-  }
-  
-  .animate-marquee-reverse {
-    animation-duration: 30s;
-  }
 }
