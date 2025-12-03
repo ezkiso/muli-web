@@ -32,6 +32,7 @@ export default function Home() {
                     <Image 
                       src={store.logo}
                       alt={`${store.name} Logo`}
+                      sizes="100vm"
                       width={100}
                       height={100}
                       className="object-contain"

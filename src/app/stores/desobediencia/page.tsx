@@ -176,7 +176,7 @@ interface Product {
                     </div>
                     <div>
                         <h1 className="text-2xl font-bold tracking-tight">DESOBEDIENCIA</h1>
-                        <p className="text-xs text-gray-400">Serigrafía & Estampados</p>
+                        <p className="text-xs text-gray-400">Serigrafía</p>
                     </div>
                     </div>
 
@@ -232,7 +232,7 @@ interface Product {
                     />
                     </div>
                     <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">DESOBEDIENCIA</h1>
-                    <p className="text-gray-400 text-lg">Serigrafía & Estampados</p>
+                    <p className="text-gray-400 text-lg">Serigrafía</p>
                 </div>
 
                 {/* Filtros y Orden */}

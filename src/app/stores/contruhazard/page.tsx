@@ -198,6 +198,7 @@ export default function ContruHazard() {
                                     >
                                         {item.src ? (
                                             <Image
+                                                
                                                 src={item.src}
                                                 alt={item.title}
                                                 fill
@@ -415,11 +416,12 @@ export default function ContruHazard() {
                             >
                                 {item.src ? (
                                     <Image
+                                        
                                         src={item.src}
                                         alt={item.title}
                                         fill
                                         className="object-cover"
-                                        sizes="64px"
+                                        sizes="100vm"
                                     />
                                 ) : (
                                     <div className="w-full h-full flex items-center justify-center text-xl bg-zinc-800">
