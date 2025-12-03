@@ -86,57 +86,79 @@ export default function ContruHazard() {
         setSelectedImage(prev => prev === gallery.length ? 1 : (prev || 0) + 1);
     };
 
+    const PHONE_NUMBER ='+56944868653';
+    const WHATSAPP_NUMBER ='56944868653';
+
     return (
         <div className="min-h-screen bg-zinc-900">
             <StoreSelector currentStoreId="construccion" />
-            {/* Header con tema de calaveras */}
+            {/* Header oscuro y profesional */}
             <header className="bg-black text-white shadow-2xl sticky top-0 z-50 border-b-4 border-orange-600">
                 <div className="container mx-auto px-4">
                     <div className="flex items-center justify-between py-4">
-                        {/* Logo y nombre */}
+                    {/* Logo y nombre */}
                         <div className="flex items-center gap-3">
                             <div className="text-5xl animate-pulse">💀</div>
                             <div>
-                                <h1 className="text-2xl font-bold tracking-tight text-orange-500">
-                                    CONTRU<span className="text-white">HAZARD</span>
-                                </h1>
-                                <p className="text-xs text-gray-400 flex items-center gap-1">
-                                    <Skull className="w-3 h-3" />
-                                    Construcción con Actitud
-                                </p>
+                            <h1 className="text-2xl font-bold tracking-tight text-orange-500">
+                                CONTRU<span className="text-white">HAZARD</span>
+                            </h1>
+                            <p className="text-xs text-gray-400 flex items-center gap-1">
+                                <Skull className="w-3 h-3" />
+                                Construcción con Actitud
+                            </p>
                             </div>
                         </div>
 
-                        {/* Navegación */}
+                        {/* Navegación - Desktop */}
                         <nav className="hidden md:flex items-center gap-6">
                             <a href="#servicios" className="hover:text-orange-500 transition-colors flex items-center gap-1">
-                                <Hammer className="w-4 h-4" />
-                                Servicios
+                            <Hammer className="w-4 h-4" />
+                            Servicios
                             </a>
                             <a href="#galeria" className="hover:text-orange-500 transition-colors">
-                                Galería
+                            Galería
                             </a>
-                            <a href="#contacto" className="hover:text-orange-500 transition-colors">
-                                Contacto
-                            </a>
-                            {/* NUEVO: Enlace a Jarros con Masilla */}
                             <Link 
-                                href="/stores/contruhazard/jarros"
-                                className="hover:text-orange-500 transition-colors flex items-center gap-1 group"
+                            href="/contruhazard/jarros"
+                            className="hover:text-orange-500 transition-colors flex items-center gap-1"
                             >
-                                <span className="text-xl group-hover:scale-110 transition-transform">💀</span>
-                                <span>Jarros & Manualidades Artesanales</span>
+                            🍺 Jarros Artesanales
                             </Link>
+                            <a href="#contacto" className="hover:text-orange-500 transition-colors">
+                            Contacto
+                            </a>
                         </nav>
 
                         {/* Iconos de acción */}
                         <div className="flex gap-3">
-                            <button className="hover:bg-zinc-800 p-2 rounded-lg transition">
-                                <Search className="w-5 h-5" />
+                            {/* Búsqueda - Solo Desktop */}
+                            <button className="hidden md:block hover:bg-zinc-800 p-2 rounded-lg transition">
+                            <Search className="w-5 h-5" />
                             </button>
-                            <button className="hover:bg-zinc-800 p-2 rounded-lg transition relative">
+                            
+                            {/* Llamada - Solo Móvil (reemplaza la lupa) */}
+                            <a 
+                                href={`tel:${PHONE_NUMBER}`}
+                                className="md:hidden hover:bg-zinc-800 p-2 rounded-lg transition"
+                                >
                                 <Phone className="w-5 h-5 text-orange-500" />
-                            </button>
+                            </a>
+
+                            {/* Botón Jarros - Solo Móvil */}
+                            <Link 
+                            href="/contruhazard/jarros"
+                            className="md:hidden hover:bg-zinc-800 p-2 rounded-lg transition"
+                            >
+                            <span className="text-xl">🍺</span>
+                            </Link>
+
+                            <a 
+                                href={`tel:${PHONE_NUMBER}`}
+                                className="hidden md:block hover:bg-zinc-800 p-2 rounded-lg transition relative"
+                                >
+                                <Phone className="w-5 h-5 text-orange-500" />
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -144,7 +166,7 @@ export default function ContruHazard() {
             
             {/* Hero Section - Banner principal con calaveras (más pequeño) */}
             <section className="relative bg-gradient-to-r from-black via-zinc-900 to-orange-900 text-white py-12 overflow-hidden">
-                {/* Patrón de calaveras de fondo */}
+                    {/* Patrón de calaveras de fondo */}
                 <div className="absolute inset-0 opacity-5 text-2xl">
                     <div className="grid grid-cols-8 gap-4 p-4">
                         {[...Array(40)].map((_, i) => (
@@ -152,11 +174,11 @@ export default function ContruHazard() {
                         ))}
                     </div>
                 </div>
-                
-                {/* Contenedor principal */}
+                    
+                    {/* Contenedor principal */}
                 <div className="container mx-auto px-4 relative z-10">
                     <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
-                        {/* Contenido de texto - Lado izquierdo */}
+                            {/* Contenido de texto - Lado izquierdo */}
                         <div className="lg:w-1/2 max-w-2xl">
                             <div className="flex items-center gap-2 mb-2">
                                 <Skull className="w-6 h-6 text-orange-500" />
@@ -182,69 +204,69 @@ export default function ContruHazard() {
                                 </button>
                             </div>
                         </div>
-                        
-                        {/* Carrusel de imágenes - Lado derecho */}
-                        <div className="lg:w-1/2 relative overflow-hidden">
-                            {/* Fondo para el carrusel */}
-                            <div className="absolute inset-0 bg-gradient-to-l from-black/50 via-transparent to-black/50 z-10 pointer-events-none"></div>
                             
-                            {/* Carrusel horizontal */}
-                            <div className="flex space-x-4 animate-marquee py-4">
-                                {/* Primera tanda de imágenes */}
-                                {gallery.map((item) => (
-                                    <div 
-                                        key={`slide-${item.id}`}
-                                        className="relative min-w-[180px] h-64 flex-shrink-0 rounded-xl overflow-hidden border-2 border-orange-500/40 shadow-2xl shadow-orange-900/30"
-                                    >
-                                        {item.src ? (
-                                            <Image
-                                                
-                                                src={item.src}
-                                                alt={item.title}
-                                                fill
-                                                className="object-cover hover:scale-105 transition-transform duration-300"
-                                                sizes="(max-width: 768px) 180px, 200px"
-                                            />
-                                        ) : (
-                                            <div className="w-full h-full bg-gradient-to-br from-zinc-800 to-black flex items-center justify-center text-6xl">
-                                                {item.emoji || '🏗️'}
-                                            </div>
-                                        )}
-                                        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-4">
-                                            <p className="text-white text-sm font-bold text-center">{item.title}</p>
-                                        </div>
-                                    </div>
-                                ))}
+                            {/* Carrusel de imágenes - Lado derecho */}
+                        <div className="lg:w-1/2 relative overflow-hidden">
+                                {/* Fondo para el carrusel */}
+                            <div className="absolute inset-0 bg-gradient-to-l from-black/50 via-transparent to-black/50 z-10 pointer-events-none"></div>
                                 
-                                {/* Duplicado para efecto continuo */}
-                                {gallery.map((item) => (
-                                    <div 
-                                        key={`slide-duplicate-${item.id}`}
-                                        className="relative min-w-[180px] h-64 flex-shrink-0 rounded-xl overflow-hidden border-2 border-orange-500/40 shadow-2xl shadow-orange-900/30"
-                                    >
-                                        {item.src ? (
-                                            <Image
-                                                src={item.src}
-                                                alt={item.title}
-                                                fill
-                                                className="object-cover hover:scale-105 transition-transform duration-300"
-                                                sizes="(max-width: 768px) 180px, 200px"
-                                            />
-                                        ) : (
-                                            <div className="w-full h-full bg-gradient-to-br from-zinc-800 to-black flex items-center justify-center text-6xl">
-                                                {item.emoji || '🏗️'}
+                                {/* Carrusel horizontal */}
+                                <div className="flex space-x-4 animate-marquee py-4">
+                                    {/* Primera tanda de imágenes */}
+                                    {gallery.map((item) => (
+                                        <div 
+                                            key={`slide-${item.id}`}
+                                            className="relative min-w-[180px] h-64 flex-shrink-0 rounded-xl overflow-hidden border-2 border-orange-500/40 shadow-2xl shadow-orange-900/30"
+                                        >
+                                            {item.src ? (
+                                                <Image
+                                                    
+                                                    src={item.src}
+                                                    alt={item.title}
+                                                    fill
+                                                    className="object-cover hover:scale-105 transition-transform duration-300"
+                                                    sizes="(max-width: 768px) 180px, 200px"
+                                                />
+                                            ) : (
+                                                <div className="w-full h-full bg-gradient-to-br from-zinc-800 to-black flex items-center justify-center text-6xl">
+                                                    {item.emoji || '🏗️'}
+                                                </div>
+                                            )}
+                                            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-4">
+                                                <p className="text-white text-sm font-bold text-center">{item.title}</p>
                                             </div>
-                                        )}
-                                        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-4">
-                                            <p className="text-white text-sm font-bold text-center">{item.title}</p>
                                         </div>
-                                    </div>
-                                ))}
+                                    ))}
+                                    
+                                    {/* Duplicado para efecto continuo */}
+                                    {gallery.map((item) => (
+                                        <div 
+                                            key={`slide-duplicate-${item.id}`}
+                                            className="relative min-w-[180px] h-64 flex-shrink-0 rounded-xl overflow-hidden border-2 border-orange-500/40 shadow-2xl shadow-orange-900/30"
+                                        >
+                                            {item.src ? (
+                                                <Image
+                                                    src={item.src}
+                                                    alt={item.title}
+                                                    fill
+                                                    className="object-cover hover:scale-105 transition-transform duration-300"
+                                                    sizes="(max-width: 768px) 180px, 200px"
+                                                />
+                                            ) : (
+                                                <div className="w-full h-full bg-gradient-to-br from-zinc-800 to-black flex items-center justify-center text-6xl">
+                                                    {item.emoji || '🏗️'}
+                                                </div>
+                                            )}
+                                            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-4">
+                                                <p className="text-white text-sm font-bold text-center">{item.title}</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
             {/* Servicios */}
             <section id="servicios" className="py-16 bg-zinc-900">
@@ -490,7 +512,7 @@ export default function ContruHazard() {
                             </div>
                             <div>
                             <p className="text-sm text-gray-400">Teléfono / WhatsApp</p>
-                            <p className="font-bold text-white text-lg">+56 9 XXXX XXXX</p>
+                            <p className="font-bold text-white text-lg">+56 9 4486 8653</p>
                             </div>
                         </div>
 
