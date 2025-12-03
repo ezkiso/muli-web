@@ -3,13 +3,12 @@
 
 import Image from 'next/image';
 import StoreSelector from '@/components/shared/StoreSelector';
-import { ShoppingCart, Phone, Clock, MapPin, Wine, Beer, Flame } from 'lucide-react';
+import { Phone, Clock, MapPin, Wine, Beer, Flame } from 'lucide-react';
 import { tragosData, type Trago } from '@/data/tragos';
 import { useState } from 'react';
 
 export default function FonoCopete() {
     const [selectedProduct, setSelectedProduct] = useState<Trago | null>(null);
-
     const formatPrice = (price: number) => {
         return new Intl.NumberFormat('es-CL').format(price);
     };
