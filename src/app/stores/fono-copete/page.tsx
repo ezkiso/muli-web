@@ -23,77 +23,50 @@ export default function FonoCopete() {
         <div className="min-h-screen bg-gradient-to-br from-gray-900 via-green-950 to-black">
         <StoreSelector currentStoreId="copete" />
 
-        {/* Header con Logo */}
-        <header className="bg-gradient-to-r from-red-900 via-black to-red-900 text-white shadow-2xl">
-            <div className="container mx-auto px-4 py-8">
-            <div className="text-center">
-                {/* Logo Circular */}
-                <div className="flex justify-center mb-6">
-                <div className="w-32 h-32 rounded-full bg-gray-800 border-4 border-red-600 overflow-hidden relative">
-                    <Image
-                        src="/fono-copete/icon.png"
-                        alt="Fono Copete Logo"
-                        fill
-                        className="object-cover"
-                        priority
-                    />
-                </div>
-                </div>
+        {/* Header */}
+        <header className="bg-gradient-to-r from-red-900 via-black to-red-900 text-white shadow-lg">
+            <div className="container mx-auto px-4 py-3">
+                <div className="text-center">
+                    {/* Logo Circular mini */}
+                    <div className="flex justify-center mb-2">
+                        <div className="w-16 h-16 rounded-full bg-gray-800 border-2 border-red-600 overflow-hidden relative">
+                            <Image
+                                src="/fono-copete/icon.png"
+                                alt="Fono Copete Logo"
+                                fill
+                                className="object-cover"
+                                priority
+                            />
+                        </div>
+                    </div>
 
-                <h1 className="text-4xl md:text-5xl font-bold mb-4">
-                Fono Copete Barrio Yungay
-                </h1>
-                <p className="text-red-200 text-lg md:text-xl mb-6">
-                ¡No te quedi seco! Fono Copete 24 horas en tu barrio favorito.
-                </p>
-                
-                <div className="flex flex-wrap items-center justify-center gap-6 text-sm">
-                <div className="flex items-center gap-2">
-                    <Clock className="w-5 h-5 text-green-400" />
-                    <span>Abierto 24/7</span>
+                    <h1 className="text-xl md:text-2xl font-bold mb-1">
+                        Fono Copete Barrio Yungay
+                    </h1>
+                    <p className="text-red-200 text-sm md:text-base mb-2">
+                        ¡No te quedi seco! Fono Copete 24 horas.
+                    </p>
+                    
+                    <div className="flex flex-wrap items-center justify-center gap-2 text-xs">
+                        <div className="flex items-center gap-1">
+                            <Clock className="w-3 h-3 text-green-400" />
+                            <span>24/7</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                            <MapPin className="w-3 h-3 text-red-400" />
+                            <span>Barrio Yungay</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                            <Phone className="w-3 h-3 text-blue-400" />
+                            <span>Delivery</span>
+                        </div>
+                    </div>
                 </div>
-                <div className="flex items-center gap-2">
-                    <MapPin className="w-5 h-5 text-red-400" />
-                    <span>Barrio Yungay, Santiago</span>
-                </div>
-                <div className="flex items-center gap-2">
-                    <Phone className="w-5 h-5 text-blue-400" />
-                    <span>Delivery Disponible</span>
-                </div>
-                </div>
-            </div>
             </div>
         </header>
 
-        {/* Promociones Destacadas */}
-        <section className="container mx-auto px-4 py-8">
-            <div className="bg-gradient-to-r from-red-600 to-orange-600 rounded-2xl p-6 text-white mb-8">
-            <div className="flex items-center justify-between flex-wrap gap-4">
-                <div className="flex items-center gap-3">
-                <Flame className="w-10 h-10" />
-                <div>
-                    <h2 className="text-2xl font-bold">¡OFERTAS CALIENTES!</h2>
-                    <p className="text-red-100">Aprovecha nuestras promociones especiales</p>
-                </div>
-                </div>
-                <a 
-                href="https://wa.me/56966743432" 
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-green-600 hover:bg-green-700 px-6 py-3 rounded-lg font-bold transition flex items-center gap-2"
-                >
-                <Phone className="w-5 h-5" />
-                Pedir por WhatsApp
-                </a>
-            </div>
-            </div>
-        </section>
-
         {/* Grid de Tragos - SOLO 4 PRODUCTOS */}
         <section className="container mx-auto px-4 pb-16">
-            <h2 className="text-3xl font-bold text-white text-center mb-8">
-            Nuestros Productos
-            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {tragosData.map((trago) => (
                 <div 
@@ -187,6 +160,30 @@ export default function FonoCopete() {
                     </p>
                 </div>
                 </div>
+            </div>
+            </div>
+        </section>
+
+         {/* Promociones Destacadas */}
+        <section className="container mx-auto px-4 py-8">
+            <div className="bg-gradient-to-r from-red-600 to-orange-600 rounded-2xl p-6 text-white mb-8">
+            <div className="flex items-center justify-between flex-wrap gap-4">
+                <div className="flex items-center gap-3">
+                <Flame className="w-10 h-10" />
+                <div>
+                    <h2 className="text-2xl font-bold">¡OFERTAS CALIENTES!</h2>
+                    <p className="text-red-100">Aprovecha nuestras promociones especiales</p>
+                </div>
+                </div>
+                <a 
+                href="https://wa.me/56966743432" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-green-600 hover:bg-green-700 px-6 py-3 rounded-lg font-bold transition flex items-center gap-2"
+                >
+                <Phone className="w-5 h-5" />
+                Pedir por WhatsApp
+                </a>
             </div>
             </div>
         </section>
