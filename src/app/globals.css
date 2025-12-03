@@ -12,10 +12,44 @@
   }
 }
 
+/* Resetear estilos para evitar problemas de viewport */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  /* Prevenir zoom en inputs en iOS */
+  -webkit-text-size-adjust: 100%;
+  /* Scroll suave */
+  scroll-behavior: smooth;
+  /* Asegurar que ocupe todo el ancho */
+  width: 100%;
+  overflow-x: hidden;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  /* Prevenir scroll horizontal */
+  overflow-x: hidden;
+  width: 100%;
+  min-height: 100vh;
+  /* Mejorar rendering en móviles */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Prevenir zoom accidental en móviles */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+textarea,
+select {
+  font-size: 16px !important;
 }
 
 /* Definir las keyframes para la animación del carrusel */
@@ -45,6 +79,14 @@ body {
 
 /* Mejorar el scroll en móvil */
 @media (max-width: 768px) {
+  /* Asegurar que los containers no se desborden */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    max-width: 100%;
+  }
+
+  /* Ajustar animaciones del carrusel */
   @keyframes marquee {
     0% {
       transform: translateX(0);
@@ -69,5 +111,44 @@ body {
   
   .animate-marquee-reverse {
     animation-duration: 30s;
+  }
+
+  /* Prevenir imágenes que se salgan del contenedor */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Ajustar grids para móvil */
+  .grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Reducir padding en móviles */
+  section {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Mejorar tablas en móvil */
+  table {
+    display: block;
+    overflow-x: auto;
+  }
+}
+
+/* Tablets */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+/* Desktop grande */
+@media (min-width: 1920px) {
+  .container {
+    max-width: 1920px;
+    margin: 0 auto;
   }
 }
