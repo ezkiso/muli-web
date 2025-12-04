@@ -301,11 +301,11 @@ interface Product {
                 Podemos hacer diseños especiales según tu idea. Contáctanos para cotizar.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="tel:+56900000000" className="bg-orange-600 hover:bg-orange-700 text-white px-8 py-4 rounded-lg font-bold transition flex items-center justify-center gap-2">
+                <a href="tel:+56944868653" className="bg-orange-600 hover:bg-orange-700 text-white px-8 py-4 rounded-lg font-bold transition flex items-center justify-center gap-2">
                     <Phone className="w-5 h-5" />
                     Llamar Ahora
                 </a>
-                <a href="https://wa.me/56900000000" className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-lg font-bold transition flex items-center justify-center gap-2">
+                <a href="https://wa.me/56944868653" className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-lg font-bold transition flex items-center justify-center gap-2">
                     <Phone className="w-5 h-5" />
                     WhatsApp
                 </a>

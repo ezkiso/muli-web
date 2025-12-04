@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://multi-web.vercel.app/sitemap.xml
+Sitemap: https://desobediencia-contruhazard-fono-copete.vercel.app/sitemap.xml

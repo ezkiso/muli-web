@@ -1,5 +1,7 @@
 // src/app/stores/desobediencia/layout.tsx
 import type { Metadata } from 'next'
+import { SITE_URL, SITE_NAME } from '@/lib/constants'
+
 
 export const metadata: Metadata = {
     title: 'Desobediencia - Serigrafía',
@@ -13,23 +15,17 @@ export const metadata: Metadata = {
     openGraph: {
         title: 'Desobediencia - Serigrafía',
         description: 'Diseños únicos de serigrafía. Post-punk y cultura alternativa',
-        url: 'https://desobediencia-contruhazard-fono-copete.vercel.app/desobediencia',
+        url: `S{SITEURL/desobediencia}`,
         siteName: 'Desobediencia',
         images: [
         {
-            url: 'https://desobediencia-contruhazard-fono-copete.vercel.app/icon.png',
+            url: `${SITE_URL}/icon.png`,
             width: 1200,
             height: 630,
         },
         ],
         locale: 'es_CL',
         type: 'website',
-    },
-    twitter: {
-        card: 'summary_large_image',
-        title: 'Desobediencia - Serigrafía',
-        description: 'Diseños únicos de serigrafía',
-        images: ['https://desobediencia-contruhazard-fono-copete.vercel.app/icon.png'],
     },
     }
 
