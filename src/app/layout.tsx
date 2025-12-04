@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Desobediencia, ContruHazard y Fono Copete',
     description: 'Desobediencia, ContruHazard y Fono Copete',
-    siteName: 'multiTienda',
+    siteName: 'Desobediencia, ContruHazard y Fono Copete',
     type: 'website',
   }
 }

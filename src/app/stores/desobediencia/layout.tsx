@@ -13,11 +13,11 @@ export const metadata: Metadata = {
     openGraph: {
         title: 'Desobediencia - Serigrafía',
         description: 'Diseños únicos de serigrafía. Post-punk y cultura alternativa',
-        url: 'https://multi-web.vercel.app/desobediencia',
+        url: 'https://desobediencia-contruhazard-fono-copete.vercel.app/desobediencia',
         siteName: 'Desobediencia',
         images: [
         {
-            url: 'https://multi-web.vercel.app/icon.png',
+            url: 'https://desobediencia-contruhazard-fono-copete.vercel.app/icon.png',
             width: 1200,
             height: 630,
         },
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
         card: 'summary_large_image',
         title: 'Desobediencia - Serigrafía',
         description: 'Diseños únicos de serigrafía',
-        images: ['https://multi-web.vercel.app/icon.png'],
+        images: ['https://desobediencia-contruhazard-fono-copete.vercel.app/icon.png'],
     },
     }
 
