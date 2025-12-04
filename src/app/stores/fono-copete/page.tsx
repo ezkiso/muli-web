@@ -3,12 +3,42 @@
 
 import Image from 'next/image';
 import StoreSelector from '@/components/shared/StoreSelector';
-import { Phone, Clock, MapPin, Wine, Beer, Flame } from 'lucide-react';
-import { tragosData, type Trago } from '@/data/tragos';
-import { useState } from 'react';
+import { Phone, Clock, MapPin, Wine, Beer, Flame, X } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { getProductosFonoCopete, ProductoFonoCopete } from '@/lib/productos';
+
+interface Trago {
+    id: number;
+    slug: string;
+    nombre: string;
+    precio: number;
+    descripcion: string;
+    imagen: string;
+    priority?: boolean;
+}
 
 export default function FonoCopete() {
     const [selectedProduct, setSelectedProduct] = useState<Trago | null>(null);
+    const [tragosData, setTragosData] = useState<Trago[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    // Cargar productos desde la base de datos
+    useEffect(() => {
+        async function loadTragos() {
+            try {
+                setLoading(true);
+                const data = await getProductosFonoCopete();
+                setTragosData(data);
+            } catch (error) {
+                console.error('Error cargando tragos:', error);
+                setTragosData([]);
+            } finally {
+                setLoading(false);
+            }
+        }
+        loadTragos();
+    }, []);
+
     const formatPrice = (price: number) => {
         return new Intl.NumberFormat('es-CL').format(price);
     };
@@ -18,6 +48,15 @@ export default function FonoCopete() {
         const url = `https://wa.me/56966743432?text=${encodeURIComponent(mensaje)}`;
         window.open(url, '_blank');
     };
+
+    // Mostrar loading mientras se cargan los productos
+    if (loading) {
+        return (
+            <div className="min-h-screen bg-gradient-to-br from-gray-900 via-green-950 to-black flex items-center justify-center">
+                <p className="text-white text-2xl">Cargando productos...</p>
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-900 via-green-950 to-black">
@@ -106,11 +145,14 @@ export default function FonoCopete() {
                     </div>
 
                     <button
-                    onClick={() => handleWhatsApp(trago)}
-                    className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-bold transition-all flex items-center justify-center gap-2 mb-2"
+                        onClick={() => handleWhatsApp(trago)}
+                        className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-bold transition-all flex items-center justify-center gap-2 mb-2"
                     >
-                    <Phone className="w-5 h-5" />
-                    Pedir por WhatsApp
+                        {/* Usa este SVG de WhatsApp */}
+                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12.032 0a12 12 0 00-10.14 18.36L0 24l5.64-1.896A12 12 0 1012.032 0zm5.772 17.52c-.324.912-1.752 1.668-2.88 1.884-.72.132-1.656.24-4.836-.996-3.984-1.56-6.564-5.46-6.756-5.7-.192-.24-1.56-2.076-1.56-3.96s.972-2.856 1.356-3.276c.36-.396.78-.552 1.044-.552h.324c.24 0 .564.036.78 1.2.216 1.056.72 3.672.78 3.936.06.264.12.6.024.936-.096.336-.18.504-.324.72-.144.216-.288.384-.432.6-.144.216-.288.456-.12.888.168.432.756 1.44 1.644 2.328 1.14 1.14 2.112 1.5 2.52 1.68.408.18.648.144.888-.084.24-.228 1.032-1.008 1.308-1.356.276-.348.552-.288.936-.168.384.12 2.412 1.14 2.82 1.356.408.216.684.324.78.504.096.18.096 1.02-.228 1.932z"/>
+                        </svg>
+                        Pedir por WhatsApp
                     </button>
 
                     <button
@@ -188,9 +230,9 @@ export default function FonoCopete() {
                 <h2 className="text-2xl font-bold text-white">{selectedProduct.nombre}</h2>
                 <button 
                     onClick={() => setSelectedProduct(null)}
-                    className="text-white text-3xl hover:text-red-500 transition"
+                    className="p-2 hover:bg-red-900/30 rounded-full transition"
                 >
-                    ×
+                    <X className="w-6 h-6 text-white" />
                 </button>
                 </div>
 
@@ -224,7 +266,10 @@ export default function FonoCopete() {
                         onClick={() => handleWhatsApp(selectedProduct)}
                         className="w-full bg-green-600 hover:bg-green-700 text-white py-4 rounded-lg font-bold text-lg transition-all flex items-center justify-center gap-2"
                     >
-                        <Phone className="w-5 h-5" />
+                        {/* Usa este SVG de WhatsApp */}
+                        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12.032 0a12 12 0 00-10.14 18.36L0 24l5.64-1.896A12 12 0 1012.032 0zm5.772 17.52c-.324.912-1.752 1.668-2.88 1.884-.72.132-1.656.24-4.836-.996-3.984-1.56-6.564-5.46-6.756-5.7-.192-.24-1.56-2.076-1.56-3.96s.972-2.856 1.356-3.276c.36-.396.78-.552 1.044-.552h.324c.24 0 .564.036.78 1.2.216 1.056.72 3.672.78 3.936.06.264.12.6.024.936-.096.336-.18.504-.324.72-.144.216-.288.384-.432.6-.144.216-.288.456-.12.888.168.432.756 1.44 1.644 2.328 1.14 1.14 2.112 1.5 2.52 1.68.408.18.648.144.888-.084.24-.228 1.032-1.008 1.308-1.356.276-.348.552-.288.936-.168.384.12 2.412 1.14 2.82 1.356.408.216.684.324.78.504.096.18.096 1.02-.228 1.932z"/>
+                        </svg>
                         Pedir por WhatsApp
                     </button>
                     </div>
