@@ -15,12 +15,17 @@ const geistMono = Geist_Mono({
 
 
 export const metadata: Metadata = {
-  title: 'Multi-Tienda E-commerce',
-  description: 'Desobediencia, ContruHazard y Fono Copete',
+  title: 'Desobediencia, ContruHazard y Fono Copete',
+  description: 'Tiendas online en Chile: Serigrafía, Construcción y Delivery de Alcohol',
+  keywords: 'tienda online chile, serigrafía, construcción, delivery alcohol',
   icons: {
     icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
-    apple: '/apple-icon.png',
+  },
+  openGraph: {
+    title: 'Desobediencia, ContruHazard y Fono Copete',
+    description: 'Desobediencia, ContruHazard y Fono Copete',
+    siteName: 'multiTienda',
+    type: 'website',
   }
 }
 
