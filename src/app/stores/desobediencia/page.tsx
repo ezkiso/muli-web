@@ -5,6 +5,7 @@ import Image from 'next/image';
 import StoreSelector from '@/components/shared/StoreSelector';
 import { ShoppingCart, Heart, Search, Instagram, Facebook, Phone, Mail, MapPin, Grid, List, Star, Truck, CreditCard, Shield, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { createClient } from '@supabase/supabase-js'
 import { getProductosDesobediencia, ProductoDesobediencia } from '@/lib/productos';
 
 interface Product {
