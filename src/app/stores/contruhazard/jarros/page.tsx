@@ -161,7 +161,7 @@ interface Product {
         </header>
 
         {/* Hero Section - Más compacto */}
-        <section className="relative bg-gradient-to-r from-black via-zinc-900 to-orange-900 text-white py-8 border-b-4 border-orange-600">
+        <section className="relative bg-linear-to-r from-black via-zinc-900 to-orange-900 text-white py-8 border-b-4 border-orange-600">
             <div className="absolute inset-0 opacity-5 text-2xl">
                 <div className="grid grid-cols-8 gap-2 p-2">
                     {[...Array(40)].map((_, i) => (
@@ -222,7 +222,7 @@ interface Product {
                     viewMode === 'list' ? 'flex' : ''
                     }`}
                 >
-                    <div className={`bg-gradient-to-br from-zinc-900 to-black flex items-center justify-center group-hover:scale-110 transition-transform duration-300 relative ${
+                    <div className={`bg-linear-to-br from-zinc-900 to-black flex items-center justify-center group-hover:scale-110 transition-transform duration-300 relative ${
                     viewMode === 'list' ? 'w-48 h-48' : 'h-64'
                     }`}>
                     <Image 

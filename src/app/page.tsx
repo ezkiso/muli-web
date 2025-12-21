@@ -9,7 +9,7 @@ export default function Home() {
     <meta name="google-site-verification" content="8hG1PXfzuhfEu4J_mN8AktmJR42FMC8Rj5EqPG85UH0" />
   </head>
   return (
-    <main className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <main className="min-h-screen bg-linear-to-br from-gray-50 to-gray-100">
       <div className="container mx-auto px-4 py-16">
         <div className="text-center mb-16">
           <h1 className="text-5xl font-bold text-gray-900 mb-4">

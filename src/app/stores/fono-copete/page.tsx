@@ -45,25 +45,25 @@ export default function FonoCopete() {
 
     const handleWhatsApp = (trago: Trago) => {
         const mensaje = `Hola! Quiero pedir: ${trago.nombre} - $${formatPrice(trago.precio)}`;
-        const url = `https://wa.me/56966743432?text=${encodeURIComponent(mensaje)}`;
+        const url = `https://wa.me/56986745322?text=${encodeURIComponent(mensaje)}`;
         window.open(url, '_blank');
     };
 
     // Mostrar loading mientras se cargan los productos
     if (loading) {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-gray-900 via-green-950 to-black flex items-center justify-center">
+            <div className="min-h-screen bg-linear-to-br from-gray-900 via-green-950 to-black flex items-center justify-center">
                 <p className="text-white text-2xl">Cargando productos...</p>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-900 via-green-950 to-black">
+        <div className="min-h-screen bg-linear-to-br from-gray-900 via-green-950 to-black">
         <StoreSelector currentStoreId="copete" />
 
         {/* Header */}
-        <header className="bg-gradient-to-r from-red-900 via-black to-red-900 text-white shadow-lg">
+        <header className="bg-linear-to-r from-red-900 via-black to-red-900 text-white shadow-lg">
             <div className="container mx-auto px-4 py-3">
                 <div className="text-center">
                     {/* Logo Circular mini */}
@@ -80,7 +80,7 @@ export default function FonoCopete() {
                     </div>
 
                     <h1 className="text-xl md:text-2xl font-bold mb-1">
-                        Fono Copete Barrio Yungay
+                        Fono Copete 
                     </h1>
                     <p className="text-red-200 text-sm md:text-base mb-2">
                         ¡No te quedi seco! Fono Copete 24 horas.
@@ -93,7 +93,7 @@ export default function FonoCopete() {
                         </div>
                         <div className="flex items-center gap-1">
                             <MapPin className="w-3 h-3 text-red-400" />
-                            <span>Barrio Yungay</span>
+                            <span>Santiago</span>
                         </div>
                         <div className="flex items-center gap-1">
                             <Phone className="w-3 h-3 text-blue-400" />
@@ -110,7 +110,7 @@ export default function FonoCopete() {
             {tragosData.map((trago) => (
                 <div 
                 key={trago.id}
-                className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl shadow-2xl overflow-hidden border-2 border-gray-700 hover:border-red-600 transition-all duration-300 transform hover:-translate-y-2"
+                className="bg-linear-to-br from-gray-800 to-gray-900 rounded-2xl shadow-2xl overflow-hidden border-2 border-gray-700 hover:border-red-600 transition-all duration-300 transform hover:-translate-y-2"
                 >
                 {/* Imagen del producto */}
                 <div className="relative h-64 bg-gray-950">
@@ -128,7 +128,7 @@ export default function FonoCopete() {
 
                 {/* Información del producto */}
                 <div className="p-6">
-                    <h3 className="text-xl font-bold text-white mb-3 min-h-[3rem]">
+                    <h3 className="text-xl font-bold text-white mb-3 min-h-12">
                     {trago.nombre}
                     </h3>
                     

@@ -3,10 +3,10 @@
 
 import Image from 'next/image';
 import StoreSelector from '@/components/shared/StoreSelector';
-import { ShoppingCart, Heart, Search, Instagram, Facebook, Phone, Mail, MapPin, Grid, List, Star, Truck, CreditCard, Shield, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { ShoppingCart, Heart, Search, Instagram, Facebook, Phone, Mail, MapPin, Grid, List, Star, Truck, CreditCard, Shield, X, ChevronLeft, ChevronRight, Package, AlertCircle } from 'lucide-react';
 import { createClient } from '@supabase/supabase-js'
-import { getProductosDesobediencia, ProductoDesobediencia } from '@/lib/productos';
+import { getProductosDesobediencia, ProductoDesobediencia, calcularPrecioConTalla, obtenerEstadoStock } from '@/lib/productos';
 
 interface Product {
     id: number;
@@ -16,12 +16,11 @@ interface Product {
     image: string;
     description: string;
     stock: number;
-    rating: number;
     images?: string[];
 }
 
 interface Size {
-    name: string;
+    name: 'S' | 'M' | 'L' | 'XL' | 'XXL';
     extraPrice: number;
 }
 
@@ -35,7 +34,7 @@ export default function DesobedienciaFull() {
     const [formData, setFormData] = useState({ name: '', email: '', message: '' });
     
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-    const [selectedSize, setSelectedSize] = useState<string>('M');
+    const [selectedSize, setSelectedSize] = useState<'S' | 'M' | 'L' | 'XL' | 'XXL'>('M');
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
     // Estado nuevo para cargar productos desde la base de datos
@@ -55,14 +54,11 @@ export default function DesobedienciaFull() {
                     id: productoDB.id,
                     name: productoDB.name,
                     category: productoDB.category,
-                    basePrice: productoDB.base_price, // Cambiar base_price a basePrice
+                    basePrice: productoDB.base_price,
                     image: productoDB.image,
                     description: productoDB.description,
                     stock: productoDB.stock,
-                    rating: productoDB.rating,
-                    // Si tienes imágenes múltiples en la base de datos, puedes mapearlas aquí
-                    // Por ahora, usar solo la imagen principal
-                    images: [productoDB.image]
+                    images: productoDB.images || [productoDB.image]
                 }));
                 
                 setProducts(productosConvertidos);
@@ -84,7 +80,7 @@ export default function DesobedienciaFull() {
         { name: 'L', extraPrice: 0 },
         { name: 'XL', extraPrice: 0 },
         { name: 'XXL', extraPrice: 0 },
-        { name: '2XXL', extraPrice: 2000 }
+        { name: 'XXL', extraPrice: 2000 }
     ];
 
     const categories = ['Todas', 'Manga Corta', 'Manga Larga'];
@@ -101,6 +97,10 @@ export default function DesobedienciaFull() {
     });
 
     const addToCart = (product: Product) => {
+        if (product.stock === 0) {
+            alert('⚠️ Este producto está agotado');
+            return;
+        }
         setCart([...cart, product]);
     };
 
@@ -134,15 +134,18 @@ export default function DesobedienciaFull() {
 
     const getCurrentPrice = () => {
         if (!selectedProduct) return 0;
-        const sizeObj = sizes.find(s => s.name === selectedSize);
-        return selectedProduct.basePrice + (sizeObj?.extraPrice || 0);
+        return calcularPrecioConTalla(selectedProduct.basePrice, selectedSize);
     };
 
     const addToCartFromDetail = () => {
         if (selectedProduct) {
-        addToCart(selectedProduct);
-        alert(`${selectedProduct.name} talla ${selectedSize} agregado al carrito!`);
-        closeProductDetail();
+            if (selectedProduct.stock === 0) {
+                alert('⚠️ Este producto está agotado');
+                return;
+            }
+            addToCart(selectedProduct);
+            alert(`${selectedProduct.name} talla ${selectedSize} agregado al carrito!`);
+            closeProductDetail();
         }
     };
 
@@ -349,16 +352,15 @@ export default function DesobedienciaFull() {
                     
                     <p className="text-sm text-gray-400 mb-3 line-clamp-2">{product.description}</p>
                     
-                    <div className="flex items-center gap-1 mb-3">
-                        {[...Array(5)].map((_, i) => (
-                        <Star 
-                            key={i}
-                            className={`w-4 h-4 ${i < product.rating ? 'fill-yellow-400 text-yellow-400' : 'text-gray-600'}`}
-                        />
-                        ))}
-                        <span className="text-xs text-gray-500 ml-2">Stock: {product.stock}</span>
-                    </div>
-                    
+                    {(() => {
+                        const estadoStock = obtenerEstadoStock(product.stock);
+                        return (
+                            <div className={`inline-block px-2 py-1 rounded text-xs font-bold mb-3 ${estadoStock.clase}`}>
+                                {estadoStock.mensaje}
+                            </div>
+                        );
+                    })()}
+
                     <div className="flex items-center justify-between">
                         <div>
                         <p className="text-xs text-gray-500">Desde</p>
@@ -495,7 +497,7 @@ export default function DesobedienciaFull() {
                     </a>
                     <a 
                     href="#" 
-                    className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white p-3 rounded-lg transition-colors"
+                    className="bg-linear-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white p-3 rounded-lg transition-colors"
                     >
                     <Instagram className="w-6 h-6" />
                     </a>
@@ -604,22 +606,28 @@ export default function DesobedienciaFull() {
                     )}
                     </div>
                 </div>
-
+                
                 {/* Información del producto */}
                 <div>
                     <span className="inline-block bg-[#800020] text-white text-xs font-semibold px-3 py-1 rounded-full mb-4">
-                    {selectedProduct.category}
+                        {selectedProduct.category}
                     </span>
                     
-                    <div className="flex items-center gap-2 mb-6">
-                    {[...Array(5)].map((_, i) => (
-                        <Star 
-                        key={i}
-                        className={`w-5 h-5 ${i < selectedProduct.rating ? 'fill-yellow-400 text-yellow-400' : 'text-gray-600'}`}
-                        />
-                    ))}
-                    <span className="text-sm text-gray-400">({selectedProduct.rating}.0)</span>
-                    </div>
+                    {/* Estado de Stock */}
+                    {(() => {
+                        const estadoStock = obtenerEstadoStock(selectedProduct.stock);
+                        return (
+                            <div className={`mb-6 px-4 py-2 rounded-lg ${estadoStock.clase} flex items-center gap-2`}>
+                                {estadoStock.disponible ? (
+                                    <Package className="w-5 h-5" />
+                                ) : (
+                                    <AlertCircle className="w-5 h-5" />
+                                )}
+                                <span className="font-bold">{estadoStock.mensaje}</span>
+                            </div>
+                        );
+                    })()}
+                                
 
                     {/* 1. PRECIO PRIMERO */}
                     <div className="mb-8 pb-6 border-b border-gray-800">
@@ -628,7 +636,7 @@ export default function DesobedienciaFull() {
                         <p className="text-sm text-gray-400 mb-1">Precio:</p>
                         <p className="text-5xl font-bold text-white">${formatPrice(getCurrentPrice())}</p>
                         </div>
-                        {selectedSize === '2XXL' && (
+                        {selectedSize === 'XXL' && (
                         <span className="bg-orange-900 text-orange-200 text-xs font-semibold px-3 py-1 rounded-full">
                             Talla especial
                         </span>
@@ -698,7 +706,7 @@ export default function DesobedienciaFull() {
                         <p className="text-sm text-gray-400">Precio total:</p>
                         <p className="text-4xl font-bold text-white">${formatPrice(getCurrentPrice())}</p>
                         </div>
-                        {selectedSize === '2XXL' && (
+                        {selectedSize === 'XXL' && (
                         <span className="bg-orange-900 text-orange-200 text-xs font-semibold px-3 py-1 rounded-full">
                             Talla especial
                         </span>

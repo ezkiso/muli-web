@@ -165,7 +165,7 @@ export default function ContruHazard() {
             </header>
             
             {/* Hero Section - Banner principal con calaveras (más pequeño) */}
-            <section className="relative bg-gradient-to-r from-black via-zinc-900 to-orange-900 text-white py-12 overflow-hidden">
+            <section className="relative bg-linear-to-r from-black via-zinc-900 to-orange-900 text-white py-12 overflow-hidden">
                     {/* Patrón de calaveras de fondo */}
                 <div className="absolute inset-0 opacity-5 text-2xl">
                     <div className="grid grid-cols-8 gap-4 p-4">
@@ -208,7 +208,7 @@ export default function ContruHazard() {
                             {/* Carrusel de imágenes - Lado derecho */}
                         <div className="lg:w-1/2 relative overflow-hidden">
                                 {/* Fondo para el carrusel */}
-                            <div className="absolute inset-0 bg-gradient-to-l from-black/50 via-transparent to-black/50 z-10 pointer-events-none"></div>
+                            <div className="absolute inset-0 bg-linear-to-l from-black/50 via-transparent to-black/50 z-10 pointer-events-none"></div>
                                 
                                 {/* Carrusel horizontal */}
                                 <div className="flex space-x-4 animate-marquee py-4">
@@ -216,7 +216,7 @@ export default function ContruHazard() {
                                     {gallery.map((item) => (
                                         <div 
                                             key={`slide-${item.id}`}
-                                            className="relative min-w-[180px] h-64 flex-shrink-0 rounded-xl overflow-hidden border-2 border-orange-500/40 shadow-2xl shadow-orange-900/30"
+                                            className="relative min-w-[180px] h-64 shrink-0 rounded-xl overflow-hidden border-2 border-orange-500/40 shadow-2xl shadow-orange-900/30"
                                         >
                                             {item.src ? (
                                                 <Image
@@ -228,11 +228,11 @@ export default function ContruHazard() {
                                                     sizes="(max-width: 768px) 180px, 200px"
                                                 />
                                             ) : (
-                                                <div className="w-full h-full bg-gradient-to-br from-zinc-800 to-black flex items-center justify-center text-6xl">
+                                                <div className="w-full h-full bg-linear-to-br from-zinc-800 to-black flex items-center justify-center text-6xl">
                                                     {item.emoji || '🏗️'}
                                                 </div>
                                             )}
-                                            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-4">
+                                            <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/90 to-transparent p-6">
                                                 <p className="text-white text-sm font-bold text-center">{item.title}</p>
                                             </div>
                                         </div>
@@ -242,7 +242,7 @@ export default function ContruHazard() {
                                     {gallery.map((item) => (
                                         <div 
                                             key={`slide-duplicate-${item.id}`}
-                                            className="relative min-w-[180px] h-64 flex-shrink-0 rounded-xl overflow-hidden border-2 border-orange-500/40 shadow-2xl shadow-orange-900/30"
+                                            className="relative min-w-[180px] h-64 shrink-0 rounded-xl overflow-hidden border-2 border-orange-500/40 shadow-2xl shadow-orange-900/30"
                                         >
                                             {item.src ? (
                                                 <Image
@@ -253,11 +253,11 @@ export default function ContruHazard() {
                                                     sizes="(max-width: 768px) 180px, 200px"
                                                 />
                                             ) : (
-                                                <div className="w-full h-full bg-gradient-to-br from-zinc-800 to-black flex items-center justify-center text-6xl">
+                                                <div className="w-full h-full bg-linear-to-br from-zinc-800 to-black flex items-center justify-center text-6xl">
                                                     {item.emoji || '🏗️'}
                                                 </div>
                                             )}
-                                            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-4">
+                                            <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/90 to-transparent p-4">
                                                 <p className="text-white text-sm font-bold text-center">{item.title}</p>
                                             </div>
                                         </div>
@@ -286,7 +286,7 @@ export default function ContruHazard() {
                         key={service.id}
                         className="group bg-black rounded-xl shadow-2xl hover:shadow-orange-500/50 transition-all duration-300 overflow-hidden border-2 border-zinc-800 hover:border-orange-500"
                     >
-                        <div className="bg-gradient-to-br from-zinc-900 to-black h-48 flex items-center justify-center text-8xl group-hover:scale-110 transition-transform duration-300">
+                        <div className="bg-linear-to-br from-zinc-900 to-black h-48 flex items-center justify-center text-8xl group-hover:scale-110 transition-transform duration-300">
                         {service.icon}
                         </div>
                         <div className="p-6">
@@ -324,7 +324,7 @@ export default function ContruHazard() {
                                 onClick={() => openModal(item.id)}
                             >
                                 {/* Contenedor de imagen */}
-                                <div className="h-64 relative bg-gradient-to-br from-zinc-800 to-black overflow-hidden">
+                                <div className="h-64 relative bg-linear-to-br from-zinc-800 to-black overflow-hidden">
                                     {item.src ? (
                                         <Image
                                             src={item.src}
@@ -357,7 +357,7 @@ export default function ContruHazard() {
 
             {/* Modal para imagen completa */}
             {selectedImage !== null && (
-                <div className="fixed inset-0 z-[9999] bg-black/95 flex items-center justify-center p-4">
+                <div className="fixed inset-0 z-9999 bg-black/95 flex items-center justify-center p-4">
                     {/* Botón cerrar */}
                     <button
                         onClick={closeModal}
@@ -402,14 +402,14 @@ export default function ContruHazard() {
                                                 priority
                                             />
                                         ) : (
-                                            <div className="w-full h-full flex items-center justify-center text-9xl bg-gradient-to-br from-zinc-900 to-black">
+                                            <div className="w-full h-full flex items-center justify-center text-9xl bg-linear-to-br from-zinc-900 to-black">
                                                 {item.emoji || '🏗️'}
                                             </div>
                                         )}
                                     </div>
 
                                     {/* Título */}
-                                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-6">
+                                    <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/90 to-transparent p-6">
                                         <h3 className="text-2xl font-bold text-white text-center">
                                             {item.title}
                                         </h3>
@@ -430,7 +430,7 @@ export default function ContruHazard() {
                             <button
                                 key={item.id}
                                 onClick={() => setSelectedImage(item.id)}
-                                className={`relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 border-2 ${
+                                className={`relative w-16 h-16 rounded-lg overflow-hidden shrink-0 border-2 ${
                                     selectedImage === item.id 
                                         ? 'border-orange-500 scale-110' 
                                         : 'border-transparent hover:border-white'
@@ -463,7 +463,7 @@ export default function ContruHazard() {
             )}
 
              {/* Sección Especial: Jarros Artesanales */}
-            <section className="py-16 bg-gradient-to-r from-orange-900 to-black border-y-4 border-orange-600">
+            <section className="py-16 bg-linear-to-r from-orange-900 to-black border-y-4 border-orange-600">
             <div className="container mx-auto px-4">
                 <div className="max-w-4xl mx-auto text-center">
                 <div className="flex items-center justify-center gap-4 mb-6">
@@ -548,7 +548,7 @@ export default function ContruHazard() {
                         </a>
                         <a 
                             href="#" 
-                            className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white p-3 rounded-lg transition-colors"
+                            className="bg-linear-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white p-3 rounded-lg transition-colors"
                         >
                             <Instagram className="w-6 h-6" />
                         </a>
@@ -622,9 +622,9 @@ export default function ContruHazard() {
                         
                         {/* Separador decorativo */}
                         <div className="flex items-center justify-center mb-16">
-                            <div className="h-px w-32 bg-gradient-to-r from-transparent via-orange-500 to-transparent"></div>
+                            <div className="h-px w-32 bg-linear-to-r from-transparent via-orange-500 to-transparent"></div>
                             <div className="mx-4 text-orange-500">💀</div>
-                            <div className="h-px w-32 bg-gradient-to-r from-transparent via-orange-500 to-transparent"></div>
+                            <div className="h-px w-32 bg-linear-to-r from-transparent via-orange-500 to-transparent"></div>
                         </div>
                     </div>
                 </div>
