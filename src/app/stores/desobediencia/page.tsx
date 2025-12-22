@@ -1,10 +1,10 @@
 // src/app/stores/desobediencia/page.tsx
 'use client'
-
+import ShoppingCartComponent, { useCart } from '@/components/cart/ShoppingCart';
 import Image from 'next/image';
 import StoreSelector from '@/components/shared/StoreSelector';
 import { useState, useEffect } from 'react';
-import { ShoppingCart, Heart, Search, Instagram, Facebook, Phone, Mail, MapPin, Grid, List, Star, Truck, CreditCard, Shield, X, ChevronLeft, ChevronRight, Package, AlertCircle } from 'lucide-react';
+import {  Heart, Search, Instagram, Facebook, Phone, Mail, MapPin, Grid, List, Star, Truck, CreditCard, Shield, X, ChevronLeft, ChevronRight, Package, AlertCircle, ShoppingCart } from 'lucide-react';
 import { createClient } from '@supabase/supabase-js'
 import { getProductosDesobediencia, ProductoDesobediencia, calcularPrecioConTalla, obtenerEstadoStock } from '@/lib/productos';
 
@@ -32,6 +32,8 @@ export default function DesobedienciaFull() {
     const [selectedCategory, setSelectedCategory] = useState('Todas');
     const [sortBy, setSortBy] = useState('destacados');
     const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+    const [isCartOpen, setIsCartOpen] = useState(false);
+    const { addToCart, getCartCount } = useCart();
     
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
     const [selectedSize, setSelectedSize] = useState<'S' | 'M' | 'L' | 'XL' | 'XXL'>('M');
@@ -79,7 +81,6 @@ export default function DesobedienciaFull() {
         { name: 'M', extraPrice: 0 },
         { name: 'L', extraPrice: 0 },
         { name: 'XL', extraPrice: 0 },
-        { name: 'XXL', extraPrice: 0 },
         { name: 'XXL', extraPrice: 2000 }
     ];
 
@@ -95,14 +96,6 @@ export default function DesobedienciaFull() {
         if (sortBy === 'nombre') return a.name.localeCompare(b.name);
         return 0;
     });
-
-    const addToCart = (product: Product) => {
-        if (product.stock === 0) {
-            alert('⚠️ Este producto está agotado');
-            return;
-        }
-        setCart([...cart, product]);
-    };
 
     const toggleFavorite = (productId: number) => {
         if (favorites.includes(productId)) {
@@ -143,7 +136,16 @@ export default function DesobedienciaFull() {
                 alert('⚠️ Este producto está agotado');
                 return;
             }
-            addToCart(selectedProduct);
+            
+            addToCart(
+                selectedProduct.id,
+                selectedProduct.name,
+                selectedProduct.image,
+                selectedProduct.basePrice,
+                selectedSize,
+                selectedProduct.category
+            );
+            
             alert(`${selectedProduct.name} talla ${selectedSize} agregado al carrito!`);
             closeProductDetail();
         }
@@ -226,12 +228,15 @@ export default function DesobedienciaFull() {
                     </span>
                     )}
                 </button>
-                <button className="hover:bg-gray-900 p-2 rounded-lg transition relative">
+                <button 
+                    onClick={() => setIsCartOpen(true)}
+                    className="hover:bg-gray-900 p-2 rounded-lg transition relative"
+                >
                     <ShoppingCart className="w-5 h-5" />
-                    {cart.length > 0 && (
-                    <span className="absolute -top-1 -right-1 bg-[#800020] text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                        {cart.length}
-                    </span>
+                    {getCartCount() > 0 && (
+                        <span className="absolute -top-1 -right-1 bg-[#800020] text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                            {getCartCount()}
+                        </span>
                     )}
                 </button>
                 </div>
@@ -651,9 +656,9 @@ export default function DesobedienciaFull() {
                         <span className="text-sm text-gray-400">Stock: {selectedProduct.stock}</span>
                     </div>
                     <div className="grid grid-cols-3 gap-2">
-                        {sizes.map((size) => (
+                        {sizes.map((size, index) => (
                         <button
-                            key={size.name}
+                            key={`${size.name}-${index}`}
                             onClick={() => setSelectedSize(size.name)}
                             className={`py-3 px-4 rounded-lg font-semibold transition-all ${
                             selectedSize === size.name
@@ -733,6 +738,8 @@ export default function DesobedienciaFull() {
                 </div>
             </div>
         )}
+        <ShoppingCartComponent isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+
         </div>
     );
 }
