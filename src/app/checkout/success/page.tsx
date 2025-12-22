@@ -1,6 +1,6 @@
 // src/app/checkout/success/page.tsx
 import { Suspense } from 'react';
-import SuccessContent from '../success-content';
+import { SuccessContentInner } from '../success-content';
 
 function SuccessLoading() {
     return (
@@ -16,7 +16,7 @@ function SuccessLoading() {
 export default function CheckoutSuccess() {
     return (
         <Suspense fallback={<SuccessLoading />}>
-            <SuccessContent />
+            <SuccessContentInner />
         </Suspense>
     );
 }

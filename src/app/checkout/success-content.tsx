@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { CheckCircle, Package, Home, Mail } from 'lucide-react';
 
-export default function SuccessContent() {
+export function SuccessContentInner() {
     const searchParams = useSearchParams();
     const orderNumber = searchParams.get('order');
     const [email, setEmail] = useState('');
@@ -100,4 +100,8 @@ export default function SuccessContent() {
             </div>
         </div>
     );
+}
+
+export default function SuccessContent() {
+    return <SuccessContentInner />;
 }
