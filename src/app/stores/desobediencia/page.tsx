@@ -6,7 +6,15 @@ import StoreSelector from '@/components/shared/StoreSelector';
 import { useState, useEffect } from 'react';
 import {  Heart, Search, Instagram, Facebook, Phone, Mail, MapPin, Grid, List, Star, Truck, CreditCard, Shield, X, ChevronLeft, ChevronRight, Package, AlertCircle, ShoppingCart } from 'lucide-react';
 import { createClient } from '@supabase/supabase-js'
-import { getProductosDesobediencia, ProductoDesobediencia, calcularPrecioConTalla, obtenerEstadoStock } from '@/lib/productos';
+import { 
+    getProductosDesobediencia,
+    ProductoDesobediencia,
+    calcularPrecioConTalla,
+    obtenerEstadoStock,
+    tieneStockEnTalla,  // ← AGREGAR
+    obtenerEstadoStockTalla,  // ← AGREGAR
+    getStockPorTalla  // ← AGREGAR
+} from '@/lib/productos';
 
 interface Product {
     id: number;
@@ -17,6 +25,7 @@ interface Product {
     description: string;
     stock: number;
     images?: string[];
+    variantes?: any[];
 }
 
 interface Size {
@@ -59,8 +68,9 @@ export default function DesobedienciaFull() {
                     basePrice: productoDB.base_price,
                     image: productoDB.image,
                     description: productoDB.description,
-                    stock: productoDB.stock,
-                    images: productoDB.images || [productoDB.image]
+                    stock: productoDB.total_stock,
+                    images: productoDB.images || [productoDB.image],
+                    variantes: productoDB.variantes || []
                 }));
                 
                 setProducts(productosConvertidos);
@@ -132,8 +142,9 @@ export default function DesobedienciaFull() {
 
     const addToCartFromDetail = () => {
         if (selectedProduct) {
-            if (selectedProduct.stock === 0) {
-                alert('⚠️ Este producto está agotado');
+            // Verificar stock de la talla seleccionada
+            if (!tieneStockEnTalla(selectedProduct.variantes, selectedSize)) {
+                alert(`⚠️ Talla ${selectedSize} agotada`);
                 return;
             }
             
@@ -652,28 +663,47 @@ export default function DesobedienciaFull() {
                     {/* 2. SELECTOR DE TALLA SEGUNDO */}
                     <div className="mb-8">
                     <div className="flex items-center justify-between mb-4">
-                        <label className="font-semibold text-white text-lg">Selecciona tu talla:</label>
-                        <span className="text-sm text-gray-400">Stock: {selectedProduct.stock}</span>
+                        <label className="font-semibold text-white text-lg">
+                            Selecciona tu talla:
+                        </label>
+                        <span className="text-sm text-gray-400">
+                            Stock: {getStockPorTalla(selectedProduct.variantes, selectedSize)} unidades
+                        </span>
                     </div>
                     <div className="grid grid-cols-3 gap-2">
-                        {sizes.map((size, index) => (
-                        <button
-                            key={`${size.name}-${index}`}
-                            onClick={() => setSelectedSize(size.name)}
-                            className={`py-3 px-4 rounded-lg font-semibold transition-all ${
-                            selectedSize === size.name
-                                ? 'bg-[#800020] text-white'
-                                : 'bg-gray-800 text-white hover:bg-gray-700'
-                            }`}
-                        >
-                            {size.name}
-                            {size.extraPrice > 0 && (
-                            <span className="block text-xs mt-1">
-                                +${formatPrice(size.extraPrice)}
-                            </span>
-                            )}
-                        </button>
-                        ))}
+                        {sizes.map((size) => {
+                            const estadoTalla = obtenerEstadoStockTalla(
+                                selectedProduct.variantes,
+                                size.name
+                            );
+                            
+                            return (
+                                <button
+                                    key={size.name}
+                                    onClick={() => setSelectedSize(size.name)}
+                                    disabled={!estadoTalla.disponible}
+                                    className={`py-3 px-4 rounded-lg font-semibold transition-all relative ${
+                                        selectedSize === size.name
+                                            ? 'bg-[#800020] text-white'
+                                            : estadoTalla.disponible
+                                            ? 'bg-gray-800 text-white hover:bg-gray-700'
+                                            : 'bg-gray-900 text-gray-600 cursor-not-allowed'
+                                    }`}
+                                >
+                                    <span className="block">{size.name}</span>
+                                    {size.extraPrice > 0 && estadoTalla.disponible && (
+                                        <span className="block text-xs mt-1">
+                                            +${formatPrice(size.extraPrice)}
+                                        </span>
+                                    )}
+                                    {!estadoTalla.disponible && (
+                                        <span className="block text-xs mt-1 text-red-400">
+                                            Agotado
+                                        </span>
+                                    )}
+                                </button>
+                            );
+                        })}
                     </div>
                     </div>
 

@@ -5,6 +5,14 @@ import { supabase } from './supabase'
 // TIPOS
 // ============================================
 
+export interface ProductoVariante {
+  id: number;
+  producto_id: number;
+  talla: 'S' | 'M' | 'L' | 'XL' | 'XXL';
+  stock: number;
+  precio_extra: number;
+}
+
 export interface ProductoDesobediencia {
   id: number;
   name: string;
@@ -12,8 +20,9 @@ export interface ProductoDesobediencia {
   base_price: number;
   image: string;
   description: string;
-  stock: number;
-  images?: string[]; // Array de imágenes
+  total_stock: number;
+  images?: string[];
+  variantes?: ProductoVariante[];
 }
 
 export interface ProductoFonoCopete {
@@ -31,11 +40,10 @@ export interface ProductoFonoCopete {
 // ============================================
 
 /**
- * Calcula el precio final según la talla
- * Tallas XXL suman $2000 al precio base
+ * Calcula el precio final con talla
  */
 export function calcularPrecioConTalla(
-  precioBase: number, 
+  precioBase: number,
   talla: 'S' | 'M' | 'L' | 'XL' | 'XXL'
 ): number {
   return talla === 'XXL' ? precioBase + 2000 : precioBase;
@@ -53,14 +61,38 @@ export function formatearPrecio(precio: number): string {
 }
 
 /**
- * Verifica si un producto tiene stock disponible
+ * Verifica si un producto tiene stock en alguna talla
  */
 export function tieneStock(producto: ProductoDesobediencia): boolean {
-  return producto.stock > 0;
+  return producto.total_stock > 0;
 }
 
 /**
- * Obtiene el estado del stock para mostrar al usuario
+ * Verifica si una talla específica tiene stock
+ */
+export function tieneStockEnTalla(
+  variantes: ProductoVariante[] | undefined,
+  talla: 'S' | 'M' | 'L' | 'XL' | 'XXL'
+): boolean {
+  if (!variantes) return false;
+  const variante = variantes.find(v => v.talla === talla);
+  return variante ? variante.stock > 0 : false;
+}
+
+/**
+ * Obtiene el stock de una talla específica
+ */
+export function getStockPorTalla(
+  variantes: ProductoVariante[] | undefined,
+  talla: 'S' | 'M' | 'L' | 'XL' | 'XXL'
+): number {
+  if (!variantes) return 0;
+  const variante = variantes.find(v => v.talla === talla);
+  return variante ? variante.stock : 0;
+}
+
+/**
+ * Obtiene el estado del stock total del producto
  */
 export function obtenerEstadoStock(stock: number): {
   disponible: boolean;
@@ -73,7 +105,7 @@ export function obtenerEstadoStock(stock: number): {
       mensaje: 'SIN STOCK',
       clase: 'bg-red-600 text-white'
     };
-  } else if (stock <= 3) {
+  } else if (stock <= 5) {
     return {
       disponible: true,
       mensaje: `¡Últimas ${stock} unidades!`,
@@ -88,45 +120,112 @@ export function obtenerEstadoStock(stock: number): {
   }
 }
 
+/**
+ * Obtiene el estado del stock por talla
+ */
+export function obtenerEstadoStockTalla(
+  variantes: ProductoVariante[] | undefined,
+  talla: 'S' | 'M' | 'L' | 'XL' | 'XXL'
+): {
+  disponible: boolean;
+  stock: number;
+  mensaje: string;
+} {
+  const stock = getStockPorTalla(variantes, talla);
+  
+  if (stock === 0) {
+    return {
+      disponible: false,
+      stock: 0,
+      mensaje: 'Agotado'
+    };
+  } else if (stock <= 2) {
+    return {
+      disponible: true,
+      stock,
+      mensaje: `¡Solo ${stock}!`
+    };
+  } else {
+    return {
+      disponible: true,
+      stock,
+      mensaje: `${stock} disponibles`
+    };
+  }
+}
+
 // ============================================
 // OPERACIONES DE BASE DE DATOS
 // ============================================
 
 /**
- * Obtener todos los productos de Desobediencia
+ * Obtener todos los productos con sus variantes
  */
 export async function getProductosDesobediencia(): Promise<ProductoDesobediencia[]> {
-  const { data, error } = await supabase
+  // Obtener productos
+  const { data: productos, error: errorProductos } = await supabase
     .from('productos_desobediencia')
     .select('*')
     .order('id', { ascending: true });
 
-  if (error) {
-    console.error('Error fetching productos:', error);
+  if (errorProductos) {
+    console.error('Error fetching productos:', errorProductos);
     return [];
   }
 
-  return data || [];
+  if (!productos) return [];
+
+  // Obtener variantes para todos los productos
+  const { data: variantes, error: errorVariantes } = await supabase
+    .from('producto_variantes')
+    .select('*')
+    .order('talla', { ascending: true });
+
+  if (errorVariantes) {
+    console.error('Error fetching variantes:', errorVariantes);
+  }
+
+  // Combinar productos con sus variantes
+  const productosConVariantes = productos.map(producto => ({
+    ...producto,
+    variantes: variantes?.filter(v => v.producto_id === producto.id) || []
+  }));
+
+  return productosConVariantes;
 }
 
 /**
- * Obtener un producto específico por ID
+ * Obtener un producto específico con sus variantes
  */
 export async function getProductoDesobedienciaById(
   id: number
 ): Promise<ProductoDesobediencia | null> {
-  const { data, error } = await supabase
+  const { data: producto, error: errorProducto } = await supabase
     .from('productos_desobediencia')
     .select('*')
     .eq('id', id)
     .single();
 
-  if (error) {
-    console.error('Error fetching producto:', error);
+  if (errorProducto) {
+    console.error('Error fetching producto:', errorProducto);
     return null;
   }
 
-  return data;
+  // Obtener variantes del producto
+  const { data: variantes, error: errorVariantes } = await supabase
+    .from('producto_variantes')
+    .select('*')
+    .eq('producto_id', id)
+    .order('talla', { ascending: true });
+
+  if (errorVariantes) {
+    console.error('Error fetching variantes:', errorVariantes);
+  }
+
+  return {
+    ...producto,
+    variantes: variantes || []
+  };
 }
 
 /**
@@ -135,28 +234,40 @@ export async function getProductoDesobedienciaById(
 export async function getProductosPorCategoria(
   categoria: 'Manga Corta' | 'Manga Larga'
 ): Promise<ProductoDesobediencia[]> {
-  const { data, error } = await supabase
+  const { data: productos, error: errorProductos } = await supabase
     .from('productos_desobediencia')
     .select('*')
     .eq('category', categoria)
     .order('id', { ascending: true });
 
-  if (error) {
-    console.error('Error fetching productos por categoría:', error);
+  if (errorProductos) {
+    console.error('Error fetching productos por categoría:', errorProductos);
     return [];
   }
 
-  return data || [];
+  if (!productos) return [];
+
+  // Obtener variantes
+  const productosIds = productos.map(p => p.id);
+  const { data: variantes } = await supabase
+    .from('producto_variantes')
+    .select('*')
+    .in('producto_id', productosIds);
+
+  return productos.map(producto => ({
+    ...producto,
+    variantes: variantes?.filter(v => v.producto_id === producto.id) || []
+  }));
 }
 
 /**
  * Obtener productos disponibles (con stock)
  */
 export async function getProductosDisponibles(): Promise<ProductoDesobediencia[]> {
-  const { data, error } = await supabase
+  const { data: productos, error } = await supabase
     .from('productos_desobediencia')
     .select('*')
-    .gt('stock', 0)
+    .gt('total_stock', 0)
     .order('id', { ascending: true });
 
   if (error) {
@@ -164,77 +275,102 @@ export async function getProductosDisponibles(): Promise<ProductoDesobediencia[]
     return [];
   }
 
-  return data || [];
+  return productos || [];
 }
 
 /**
- * Agregar nuevo producto (requiere autenticación)
+ * Actualizar stock de una talla específica
  */
-export async function addProductoDesobediencia(
-  producto: Omit<ProductoDesobediencia, 'id'>
-) {
-  const { data, error } = await supabase
-    .from('productos_desobediencia')
-    .insert([producto])
-    .select();
-
-  if (error) throw error;
-  return data;
-}
-
-/**
- * Actualizar stock de un producto
- */
-export async function updateStock(
-  tienda: 'desobediencia' | 'fono-copete',
-  id: number,
+export async function updateStockTalla(
+  productoId: number,
+  talla: 'S' | 'M' | 'L' | 'XL' | 'XXL',
   nuevoStock: number
-) {
-  const tabla = tienda === 'desobediencia' 
-    ? 'productos_desobediencia' 
-    : 'productos_fono_copete';
-
-  const { data, error } = await supabase
-    .from(tabla)
+): Promise<boolean> {
+  const { error } = await supabase
+    .from('producto_variantes')
     .update({ stock: nuevoStock })
-    .eq('id', id)
-    .select();
+    .eq('producto_id', productoId)
+    .eq('talla', talla);
 
-  if (error) throw error;
-  return data;
+  if (error) {
+    console.error('Error actualizando stock:', error);
+    return false;
+  }
+
+  return true;
 }
 
 /**
  * Reducir stock después de una compra
  */
-export async function reducirStock(
-  id: number,
+export async function reducirStockTalla(
+  productoId: number,
+  talla: 'S' | 'M' | 'L' | 'XL' | 'XXL',
   cantidad: number = 1
 ): Promise<boolean> {
-  // Primero obtenemos el producto actual
-  const producto = await getProductoDesobedienciaById(id);
-  
-  if (!producto) {
-    throw new Error('Producto no encontrado');
+  // Obtener stock actual
+  const { data: variante, error: errorGet } = await supabase
+    .from('producto_variantes')
+    .select('stock')
+    .eq('producto_id', productoId)
+    .eq('talla', talla)
+    .single();
+
+  if (errorGet || !variante) {
+    console.error('Error obteniendo variante:', errorGet);
+    return false;
   }
 
-  if (producto.stock < cantidad) {
-    throw new Error('Stock insuficiente');
+  if (variante.stock < cantidad) {
+    console.error('Stock insuficiente');
+    return false;
   }
 
-  const nuevoStock = producto.stock - cantidad;
+  const nuevoStock = variante.stock - cantidad;
 
-  const { error } = await supabase
-    .from('productos_desobediencia')
+  const { error: errorUpdate } = await supabase
+    .from('producto_variantes')
     .update({ stock: nuevoStock })
-    .eq('id', id);
+    .eq('producto_id', productoId)
+    .eq('talla', talla);
 
-  if (error) {
-    console.error('Error reduciendo stock:', error);
+  if (errorUpdate) {
+    console.error('Error reduciendo stock:', errorUpdate);
     return false;
   }
 
   return true;
+}
+
+/**
+ * Agregar nuevo producto con sus variantes
+ */
+export async function addProductoConVariantes(
+  producto: Omit<ProductoDesobediencia, 'id' | 'total_stock'>,
+  variantes: Omit<ProductoVariante, 'id' | 'producto_id'>[]
+) {
+  // Insertar producto
+  const { data: nuevoProducto, error: errorProducto } = await supabase
+    .from('productos_desobediencia')
+    .insert([producto])
+    .select()
+    .single();
+
+  if (errorProducto) throw errorProducto;
+
+  // Insertar variantes
+  const variantesConProductoId = variantes.map(v => ({
+    ...v,
+    producto_id: nuevoProducto.id
+  }));
+
+  const { error: errorVariantes } = await supabase
+    .from('producto_variantes')
+    .insert(variantesConProductoId);
+
+  if (errorVariantes) throw errorVariantes;
+
+  return nuevoProducto;
 }
 
 // ============================================
