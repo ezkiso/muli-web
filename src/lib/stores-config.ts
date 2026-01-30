@@ -19,6 +19,7 @@ export interface StoreConfig {
     facebook?: string;
     storeType?: 'ecommerce' | 'tattoo';
     accentColor?: string;
+    path: string; // ← AÑADIR ESTA PROPIEDAD
 }
 
 // Configuración de todas las tiendas
@@ -33,6 +34,7 @@ export const STORES = {
         secondaryColor: '#2C3E50',
         logo: '/desobediencia/icon.png',
         storeType: 'ecommerce',
+        path: '/stores/desobediencia' // ← AÑADIR
     },
     contruhazard: {
         id: 'contruhazard',
@@ -43,6 +45,7 @@ export const STORES = {
         secondaryColor: '#1C1C1C',
         logo: ' 💀 ',
         storeType: 'ecommerce',
+        path: '/stores/contruhazard' // ← AÑADIR
     },
     nicolapso: {
         id: 'nicolapso',
@@ -57,6 +60,7 @@ export const STORES = {
         instagram: 'nicolapso_tatuajes',
         facebook: 'nicolapso.qu',
         storeType: 'tattoo',
+        path: '/stores/nicolapso' // ← AÑADIR
     },
 } as const; // ← IMPORTANTE: 'as const' hace que TypeScript sepa que es un objeto, no un array
 
@@ -82,4 +86,9 @@ export function isValidStoreSlug(slug: string): slug is StoreId {
 export function getStoreBySlug(slug: string): StoreConfig | undefined {
     const entry = Object.entries(STORES).find(([_, store]) => store.slug === slug);
     return entry ? (entry[1] as StoreConfig) : undefined;
+}
+
+// Función helper para obtener el path de una tienda
+export function getStorePath(storeId: StoreId): string {
+    return `/stores/${storeId}`;
 }
