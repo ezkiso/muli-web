@@ -10,6 +10,7 @@ const storeConfig = STORES.nicolapso;
 export const metadata: Metadata = {
     title: `${storeConfig.name} - Arte Corporal Personalizado`,
     description: storeConfig.description,
+    icons: '/nicolapso/favicon.ico',
     keywords: 'tatuajes, dotwork, blackwork, tatuajes santiago, nicolapso, arte corporal, tatuajes personalizados',
     openGraph: {
         title: storeConfig.name,

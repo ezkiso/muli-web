@@ -4,16 +4,16 @@ import "./globals.css";
 
 
 export const metadata: Metadata = {
-  title: 'Desobediencia, ContruHazard y Fono Copete',
+  title: 'Desobediencia, ContruHazard y Nicolapso Tatuajes',
   description: 'Tiendas online en Chile: Serigrafía, Construcción y Delivery de Alcohol',
   keywords: 'tienda online chile, serigrafía, construcción, delivery alcohol',
   icons: {
     icon: '/favicon.ico',
   },
   openGraph: {
-    title: 'Desobediencia, ContruHazard y Fono Copete',
-    description: 'Desobediencia, ContruHazard y Fono Copete',
-    siteName: 'Desobediencia, ContruHazard y Fono Copete',
+    title: 'Desobediencia, ContruHazard y Nicolapso Tatuajes',
+    description: 'Desobediencia, ContruHazard y Nicolapso Tatuajes',
+    siteName: 'Desobediencia, ContruHazard y Nicolapso Tatuajes',
     type: 'website',
   }
 }
