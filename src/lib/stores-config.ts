@@ -51,7 +51,7 @@ export const STORES = {
         id: 'nicolapso',
         name: 'Nicolapso Tatuajes',
         slug: 'nicolapso',
-        description: 'Dotwork & Blackwork',
+        description: 'TRADICIONAL - BLACKWORK',
         primaryColor: '#E8DCC4',
         secondaryColor: '#0A0A0A',
         accentColor: '#FF4D6D',

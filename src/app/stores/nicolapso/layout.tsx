@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     title: `${storeConfig.name} - Arte Corporal Personalizado`,
     description: storeConfig.description,
     icons: '/nicolapso/favicon.ico',
-    keywords: 'tatuajes, dotwork, blackwork, tatuajes santiago, nicolapso, arte corporal, tatuajes personalizados',
+    keywords: 'tatuajes, trad-tatto, black-tatto, tatuajes santiago, nicolapso, arte corporal, tatuajes personalizados',
     openGraph: {
         title: storeConfig.name,
         description: storeConfig.description,
@@ -178,7 +178,7 @@ export default function NicolapsoLayout({
                                 </div>
                             </div>
                             <p className="text-stone-400 mb-4 text-sm">
-                                Especializado en técnicas de dotwork y blackwork. Cada diseño es una obra única 
+                                Especializado en técnicas de trad-tatto y black-tatto. Cada diseño es una obra única 
                                 creada específicamente para ti.
                             </p>
                             <div className="flex gap-3">
