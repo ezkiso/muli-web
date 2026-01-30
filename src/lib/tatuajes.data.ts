@@ -9,8 +9,8 @@ export const MOCK_TATTOOS: TattooWork[] = [
     title: '🥷🏻',
     imageUrl: '/nicolapso/bebe.jpg',
     category: 'diseños',
-    style: ['Dotwork', 'Blackwork'],
-    tags: ['corazón', 'ornamental', 'dotwork']
+    style: ['TRAD-TATTO', 'BLACK-TATTO'],
+    tags: ['corazón', 'ornamental', 'TRAD-TATTO']
   },
   {
     id: 'd-002',
@@ -18,57 +18,57 @@ export const MOCK_TATTOOS: TattooWork[] = [
     description: 'Disponible 💥',
     imageUrl: '/nicolapso/madball.jpg',
     category: 'diseños',
-    style: ['Blackwork', 'Dotwork'],
-    tags: ['blackwork']
+    style: ['BLACK-TATTO', 'TRAD-TATTO'],
+    tags: ['BLACK-TATTO']
   },
   {
     id: 'd-003',
     title: 'Disponibles 💥💥💥',
     imageUrl: '/nicolapso/diseños.jpg',
     category: 'diseños',
-    style: ['Blackwork', 'Dotwork'],
-    tags: ['blackwork']
+    style: ['BLACK-TATTO', 'TRAD-TATTO'],
+    tags: ['BLACK-TATTO']
   },
   {
     id: 'd-004',
     title: 'Mangual',
     description: 'Disponible 💥',
     imageUrl: '/nicolapso/mangual.jpg',
-    style: ['Dotwork'],
+    style: ['TRAD-TATTO'],
     category: 'diseños',
-    tags: ['armas', 'dotwork']
+    tags: ['armas', 'TRAD-TATTO']
   },
   {
     id: 'd-005',
     title: 'Disponible 🐯',
     imageUrl: '/nicolapso/tigre.jpg',
     category: 'diseños',
-    style: ['Dotwork'],
-    tags: ['animales', 'dotwork']
+    style: ['TRAD-TATTO'],
+    tags: ['animales', 'TRAD-TATTO']
   },
   {
     id: 'd-006',
     title: 'Disponible 💃👹',
     imageUrl: '/nicolapso/mujer.jpg',
     category: 'diseños',
-    style: ['Dotwork', 'Blackwork'],
-    tags: ['caras', 'dotwork']
+    style: ['TRAD-TATTO', 'BLACK-TATTO'],
+    tags: ['caras', 'TRAD-TATTO']
   },
   {
     id: 'd-007',
     title: 'Disponible 🥋🥋🥋🥋',
     imageUrl: '/nicolapso/mujer-cuchillo.jpg',
     category: 'diseños',
-    style: ['Dotwork'],
-    tags: ['caras', 'dotwork', 'armas']
+    style: ['TRAD-TATTO'],
+    tags: ['caras', 'TRAD-TATTO', 'armas']
   },
   {
     id: 'd-008',
     title: '🐱🤡',
     imageUrl: '/nicolapso/gato.jpg',
     category: 'diseños',
-    style: ['Dotwork',],
-    tags: ['animales', 'dotwork']
+    style: ['TRAD-TATTO',],
+    tags: ['animales', 'TRAD-TATTO']
   },
 
   // Trabajos realizados
@@ -77,48 +77,48 @@ export const MOCK_TATTOOS: TattooWork[] = [
     title: '🧙‍♀️🧹',
     imageUrl: '/nicolapso/tr-bruja.jpg',
     category: 'realizados',
-    style: ['Dotwork'],
-    tags: ['dotwork']
+    style: ['TRAD-TATTO'],
+    tags: ['TRAD-TATTO']
   },
   {
     id: 'r-002',
     title: '🐍🐍🐍🐍',
     imageUrl: '/nicolapso/tr-serpiente.jpg',
     category: 'realizados',
-    style: ['Dotwork', 'Blackwork'],
-    tags: ['dotwork', 'blackwork']
+    style: ['TRAD-TATTO', 'BLACK-TATTO'],
+    tags: ['TRAD-TATTO', 'BLACK-TATTO']
   },
   {
     id: 'r-003',
     title: 'Bathory',
     imageUrl: '/nicolapso/tr-bathory.jpg',
     category: 'realizados',
-    style: ['Blackwork'],
-    tags: ['blackwork']
+    style: ['BLACK-TATTO'],
+    tags: ['BLACK-TATTO']
   },
   {
     id: 'r-004',
     title: 'Ozzy 💖💖🗣️🗣️',
     imageUrl: '/nicolapso/tr-gato-comiendo-murcielago.jpg',
     category: 'realizados',
-    style: ['Blackwork', 'Dotwork'],
-    tags: ['blackwork', 'dotwork', 'animales'],
+    style: ['BLACK-TATTO', 'TRAD-TATTO'],
+    tags: ['BLACK-TATTO', 'TRAD-TATTO', 'animales'],
   },
   {
     id: 'r-005',
     title: 'Roma 🐶',
     imageUrl: '/nicolapso/tr-perrito.jpg',
     category: 'realizados',
-    style: ['Dotwork'],
-    tags: ['dotwork', 'animales'],
+    style: ['TRAD-TATTO'],
+    tags: ['TRAD-TATTO', 'animales'],
   },
   {
     id: 'r-006',
     title: '💀🕯️🕸️',
     imageUrl: '/nicolapso/tr-vela.jpg',
     category: 'realizados',
-    style: ['Dotwork', 'Blackwork'],
-    tags: ['dotwork', 'blackwork', 'calaveras'],
+    style: ['TRAD-TATTO', 'BLACK-TATTO'],
+    tags: ['TRAD-TATTO', 'BLACK-TATTO', 'calaveras'],
   },
 
 ];

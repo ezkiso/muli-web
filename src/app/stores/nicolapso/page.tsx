@@ -1,6 +1,3 @@
-// src/app/stores/nicolapso/page.tsx
-// PÁGINA COMPLETA - Limpiada y sin duplicaciones
-
 'use client';
 
 import { useState, useMemo } from 'react';
@@ -27,6 +24,7 @@ import { TATTOO_CATEGORIES, TATTOO_STYLES, TattooWork } from '@/lib/tatuajes.typ
 import { MOCK_TATTOOS, getTattoosByCategory } from '@/lib/tatuajes.data';
 import TattooCard from '@/components/nicolapso/TattooCard';
 import TattooModal from '@/components/nicolapso/TattooModal';
+import StoreSelector from '@/components/shared/StoreSelector';
 
 const storeConfig = STORES.nicolapso;
 
@@ -69,8 +67,9 @@ export default function NicolapsoTatuajesPage() {
     };
 
     const whatsappLink = `https://wa.me/${storeConfig.whatsapp?.replace(/[^\d]/g, '')}?text=Hola!%20Me%20interesa%20agendar%20una%20cita%20para%20un%20tatuaje`;
-
+    
     return (
+        
         <div className="min-h-screen bg-linear-to-br from-stone-950 via-zinc-950 to-neutral-950">
             {/* Hero Section */}
             <section className="relative h-[70vh] md:h-[80vh] overflow-hidden">
@@ -107,7 +106,7 @@ export default function NicolapsoTatuajesPage() {
                     </p>
                     
                     <p className="text-md text-stone-400 mb-8 max-w-xl">
-                        Dotwork • Blackwork • Ornamental • Linework
+                        BLACK // TRAD TATTOS
                     </p>
 
                     <div className="flex flex-wrap gap-6 md:gap-12 justify-center mb-8 text-stone-300">
@@ -410,7 +409,7 @@ export default function NicolapsoTatuajesPage() {
                             </div>
                             <div className="absolute -bottom-6 -right-6 bg-linear-to-br from-amber-600 to-amber-700 text-white p-6 rounded-2xl shadow-xl">
                                 <p className="text-sm font-semibold mb-1">Especializado en</p>
-                                <p className="text-2xl font-bold">Dotwork</p>
+                                <p className="text-2xl font-bold">TRAD TATTOS</p>
                             </div>
                         </div>
 
@@ -420,8 +419,8 @@ export default function NicolapsoTatuajesPage() {
                             </h2>
                             <p className="text-stone-300 mb-6 text-lg leading-relaxed">
                                 Soy Nicolapso, tatuador especializado en técnicas de{' '}
-                                <span className="text-amber-400 font-semibold">dotwork</span> y{' '}
-                                <span className="text-amber-400 font-semibold">blackwork</span>. 
+                                <span className="text-amber-400 font-semibold">BLACK TATTOS</span> y{' '}
+                                <span className="text-amber-400 font-semibold">TRAD TATTOS</span>. 
                                 Con más de 10 años de experiencia, me dedico a transformar tus ideas 
                                 en arte corporal único que cuente tu historia.
                             </p>
