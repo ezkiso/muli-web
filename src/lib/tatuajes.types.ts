@@ -8,12 +8,12 @@ export interface TattooWork {
     imageUrl: string;
     thumbnailUrl?: string;
     category: 'realizados' | 'diseños' | 'flash';
-    style: string[]; // ['dotwork', 'blackwork', 'linework', etc.]
+    style: string[]; 
     bodyPart?: string;
     size?: 'pequeño' | 'mediano' | 'grande';
     date?: string;
     tags?: string[];
-    available?: boolean; // Para flash tattoos
+    available?: boolean;
     }
 
     export interface TattooCategory {
@@ -56,6 +56,10 @@ export interface TattooWork {
     ];
 
     export const TATTOO_STYLES = [
+    'TRAD-TATTO',
+    'BLACK-TATTO',
+    'REALISM-TATTO',
+    'NEO-TRAD-TATTO',
     'Dotwork',
     'Blackwork',
     'Linework',
