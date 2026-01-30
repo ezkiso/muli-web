@@ -23,8 +23,8 @@ export default function TattooCard({ tattoo, onClick }: TattooCardProps) {
 
   const getCategoryBadge = () => {
     const badges = {
-      realizado: { text: 'Realizado', color: 'bg-green-500/90' },
-      diseño: { text: 'Diseño', color: 'bg-blue-500/90' },
+      realizados: { text: 'Realizados', color: 'bg-green-500/90' },
+      diseños: { text: 'Diseños', color: 'bg-blue-500/90' },
       flash: { text: tattoo.available ? '⚡ Disponible' : '⚡ Tatuado', 
               color: tattoo.available ? 'bg-amber-500/90' : 'bg-gray-500/90' }
     };
@@ -130,7 +130,7 @@ export default function TattooCard({ tattoo, onClick }: TattooCardProps) {
         )}
 
         {/* Fecha para trabajos realizados */}
-        {tattoo.category === 'realizado' && tattoo.date && (
+        {tattoo.category === 'realizados' && tattoo.date && (
           <p className="text-xs text-gray-600 mt-2">
             {new Date(tattoo.date).toLocaleDateString('es-CL', { 
               year: 'numeric', 
