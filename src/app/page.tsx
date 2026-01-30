@@ -1,10 +1,11 @@
 // src/app/page.tsx
 import Link from 'next/link';
 import Image from 'next/image';
-import { STORES } from '@/lib/stores-config';
-import { ArrowRight } from 'lucide-react';
+import { getAllStores } from '@/lib/stores-config';  // ← CAMBIO AQUÍ
+import { ArrowRight, Store } from 'lucide-react';
 
 export default function Home() {
+  const stores = getAllStores();
   <head>
     <meta name="google-site-verification" content="8hG1PXfzuhfEu4J_mN8AktmJR42FMC8Rj5EqPG85UH0" />
   </head>
@@ -21,11 +22,11 @@ export default function Home() {
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {STORES.map((store) => (
+          {stores.map((store) => (  // ← USAR VARIABLE
             <Link
               key={store.id}
-              href={store.path}
-              className="group"
+              href={`/stores/${store.slug}`}
+              className="group block"
             >
               <div className="bg-white rounded-2xl shadow-lg p-8 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
                 {/* Logo: detecta si es emoji o imagen */}
