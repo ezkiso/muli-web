@@ -7,7 +7,7 @@ export interface TattooWork {
     description?: string;
     imageUrl: string;
     thumbnailUrl?: string;
-    category: 'realizado' | 'diseño' | 'flash';
+    category: 'realizados' | 'diseños' | 'flash';
     style: string[]; // ['dotwork', 'blackwork', 'linework', etc.]
     bodyPart?: string;
     size?: 'pequeño' | 'mediano' | 'grande';

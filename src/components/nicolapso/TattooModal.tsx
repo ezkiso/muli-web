@@ -16,7 +16,7 @@ export default function TattooModal({ tattoo, isOpen, onClose }: TattooModalProp
   if (!isOpen || !tattoo) return null;
 
   const storeConfig = STORES.nicolapso;
-  const whatsappMessage = `Hola! Me interesa el ${tattoo.category === 'diseño' || tattoo.category === 'flash' ? 'diseño' : 'trabajo'} "${tattoo.title}". ¿Podemos agendar una cita?`;
+  const whatsappMessage = `Hola! Me interesa el ${tattoo.category === 'diseños' || tattoo.category === 'flash' ? 'diseño' : 'trabajo'} "${tattoo.title}". ¿Podemos agendar una cita?`;
   const whatsappLink = `https://wa.me/${storeConfig.whatsapp?.replace(/[^\d]/g, '')}?text=${encodeURIComponent(whatsappMessage)}`;
 
   return (
@@ -51,12 +51,12 @@ export default function TattooModal({ tattoo, isOpen, onClose }: TattooModalProp
           <div className="w-full md:w-1/2 p-6 md:p-8 overflow-y-auto">
             {/* Categoría badge */}
             <div className="mb-4">
-              {tattoo.category === 'realizado' && (
+              {tattoo.category === 'realizados' && (
                 <span className="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-sm font-semibold border border-green-500/30">
                   ✓ Trabajo Realizado
                 </span>
               )}
-              {tattoo.category === 'diseño' && (
+              {tattoo.category === 'diseños' && (
                 <span className="bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full text-sm font-semibold border border-blue-500/30">
                   ✎ Diseño Disponible
                 </span>
@@ -126,7 +126,7 @@ export default function TattooModal({ tattoo, isOpen, onClose }: TattooModalProp
               )}
 
               {/* Fecha */}
-              {tattoo.date && tattoo.category === 'realizado' && (
+              {tattoo.date && tattoo.category === 'realizados' && (
                 <div className="flex items-center gap-3">
                   <Calendar className="w-5 h-5 text-amber-500 shrink-0" />
                   <div>
