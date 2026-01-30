@@ -56,7 +56,7 @@ export const STORES = {
         secondaryColor: '#0A0A0A',
         accentColor: '#FF4D6D',
         logo: '/nicolapso/icon.jpg',
-        whatsapp: '+56912345678', // ⚠️ CAMBIAR POR NÚMERO REAL
+        whatsapp: '+56994868300', // ⚠️ CAMBIAR POR NÚMERO REAL
         instagram: 'nicolapso_tatuajes',
         facebook: 'nicolapso.qu',
         storeType: 'tattoo',
