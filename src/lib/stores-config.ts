@@ -1,11 +1,3 @@
-// src/lib/stores-config.ts
-// ARCHIVO COMPLETO - REEMPLAZAR TODO EL CONTENIDO
-
-/**
- * Configuración de todas las tiendas de la plataforma
- */
-
-// Definir el tipo de una tienda
 export interface StoreConfig {
     id: string;
     name: string;
@@ -19,11 +11,10 @@ export interface StoreConfig {
     facebook?: string;
     storeType?: 'ecommerce' | 'tattoo';
     accentColor?: string;
-    path: string; // ← AÑADIR ESTA PROPIEDAD
+    path: string;
 }
 
 // Configuración de todas las tiendas
-// IMPORTANTE: usar 'as const' al final para tipos literales
 export const STORES = {
     desobediencia: {
         id: 'desobediencia',
@@ -34,7 +25,7 @@ export const STORES = {
         secondaryColor: '#2C3E50',
         logo: '/desobediencia/icon.png',
         storeType: 'ecommerce',
-        path: '/stores/desobediencia' // ← AÑADIR
+        path: '/stores/desobediencia'
     },
     contruhazard: {
         id: 'contruhazard',
@@ -45,7 +36,7 @@ export const STORES = {
         secondaryColor: '#1C1C1C',
         logo: ' 💀 ',
         storeType: 'ecommerce',
-        path: '/stores/contruhazard' // ← AÑADIR
+        path: '/stores/contruhazard' 
     },
     nicolapso: {
         id: 'nicolapso',
@@ -56,11 +47,11 @@ export const STORES = {
         secondaryColor: '#0A0A0A',
         accentColor: '#FF4D6D',
         logo: '/nicolapso/icon.jpg',
-        whatsapp: '+56994868300', // ⚠️ CAMBIAR POR NÚMERO REAL
+        whatsapp: '+56994868300',
         instagram: 'nicolapso_tatuajes',
         facebook: 'nicolapso.qu',
         storeType: 'tattoo',
-        path: '/stores/nicolapso' // ← AÑADIR
+        path: '/stores/nicolapso' 
     },
 } as const; // ← IMPORTANTE: 'as const' hace que TypeScript sepa que es un objeto, no un array
 

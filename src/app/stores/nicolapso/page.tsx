@@ -72,7 +72,7 @@ export default function NicolapsoTatuajesPage() {
         
         <div className="min-h-screen bg-linear-to-br from-stone-950 via-zinc-950 to-neutral-950">
             {/* Hero Section */}
-            <section className="relative h-[70vh] md:h-[80vh] overflow-hidden">
+            <section className="relative min-h-screen sm:min-h-[85vh] md:h-[80vh] overflow-hidden pt-20 sm:pt-0">
                 <div className="absolute inset-0 bg-linear-to-b from-transparent via-stone-950/50 to-stone-950" />
                 
                 <div className="absolute inset-0 opacity-5">
@@ -81,94 +81,100 @@ export default function NicolapsoTatuajesPage() {
                     }} />
                 </div>
 
-                <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center items-center text-center">
-                    <div className="mb-6 relative">
-                        <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-amber-600/30 shadow-2xl shadow-amber-900/50 bg-stone-900">
+                <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center items-center text-center pb-8 sm:pb-0">
+                    {/* Logo - MÁS PEQUEÑO Y MEJOR ESPACIADO EN MOBILE */}
+                    <div className="mb-4 sm:mb-6 relative">
+                        <div className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-amber-600/30 shadow-2xl shadow-amber-900/50 bg-stone-900">
                             <Image
                                 src="/nicolapso/icon.jpg"
                                 alt="Nicolapso Tatuajes"
                                 width={160}
                                 height={160}
-                                className="object-cover"
+                                className="object-cover w-full h-full"
                             />
                         </div>
-                        <div className="absolute -bottom-2 -right-2 bg-amber-500 text-white p-2 rounded-full shadow-lg">
-                            <Sparkles className="w-5 h-5" />
+                        <div className="absolute -bottom-2 -right-2 bg-amber-500 text-white p-1.5 sm:p-2 rounded-full shadow-lg">
+                            <Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />
                         </div>
                     </div>
 
-                    <h1 className="text-5xl md:text-7xl font-bold mb-4 bg-linear-to-r from-amber-200 via-amber-400 to-amber-200 bg-clip-text text-transparent drop-shadow-2xl">
+                    {/* Título - RESPONSIVE */}
+                    <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold mb-3 sm:mb-4 bg-linear-to-r from-amber-200 via-amber-400 to-amber-200 bg-clip-text text-transparent drop-shadow-2xl px-4">
                         Nicolapso Tatuajes
                     </h1>
                     
-                    <p className="text-xl md:text-2xl text-stone-300 mb-3 max-w-2xl">
+                    {/* Subtítulos - RESPONSIVE */}
+                    <p className="text-base sm:text-xl md:text-2xl text-stone-300 mb-2 sm:mb-3 max-w-2xl px-4">
                         Arte corporal personalizado
                     </p>
                     
-                    <p className="text-md text-stone-400 mb-8 max-w-xl">
-                        BLACK // TRAD TATTOS
+                    <p className="text-sm sm:text-md text-stone-400 mb-6 sm:mb-8 max-w-xl px-4">
+                        Tatuaje blackwork y tatuaje tradicional
                     </p>
 
-                    <div className="flex flex-wrap gap-6 md:gap-12 justify-center mb-8 text-stone-300">
-                        <div className="flex items-center gap-2">
-                            <Award className="w-5 h-5 text-amber-500" />
-                            <span className="text-sm">+10 años de experiencia</span>
+                    {/* Estadísticas - MÁS COMPACTAS EN MOBILE */}
+                    <div className="flex flex-wrap gap-3 sm:gap-6 md:gap-12 justify-center mb-6 sm:mb-8 text-stone-300 px-4">
+                        <div className="flex items-center gap-1.5 sm:gap-2">
+                            <Award className="w-4 h-4 sm:w-5 sm:h-5 text-amber-500 shrink-0" />
+                            <span className="text-xs sm:text-sm whitespace-nowrap">+10 años experiencia</span>
                         </div>
-                        <div className="flex items-center gap-2">
-                            <Sparkles className="w-5 h-5 text-amber-500" />
-                            <span className="text-sm">Diseños únicos</span>
+                        <div className="flex items-center gap-1.5 sm:gap-2">
+                            <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-amber-500 shrink-0" />
+                            <span className="text-xs sm:text-sm whitespace-nowrap">Diseños únicos</span>
                         </div>
-                        <div className="flex items-center gap-2">
-                            <MapPin className="w-5 h-5 text-amber-500" />
-                            <span className="text-sm">Santiago, Chile</span>
+                        <div className="flex items-center gap-1.5 sm:gap-2">
+                            <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-amber-500 shrink-0" />
+                            <span className="text-xs sm:text-sm whitespace-nowrap">Santiago, Chile</span>
                         </div>
                     </div>
 
-                    <div className="flex flex-col sm:flex-row gap-4">
+                    {/* Botones - RESPONSIVE */}
+                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full max-w-md px-4">
                         <a
                             href={whatsappLink}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center justify-center gap-3 bg-linear-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 shadow-lg shadow-green-900/50 hover:shadow-green-900/70 hover:scale-105"
+                            className="flex items-center justify-center gap-2 sm:gap-3 bg-linear-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 text-white font-bold py-3 sm:py-4 px-6 sm:px-8 rounded-xl transition-all duration-300 shadow-lg shadow-green-900/50 hover:shadow-green-900/70 hover:scale-105"
                         >
-                            <MessageCircle className="w-5 h-5" />
-                            <span>Agenda tu Cita</span>
+                            <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5" />
+                            <span className="text-sm sm:text-base">Agenda tu Cita</span>
                         </a>
                         
                         <a
                             href="#galeria"
-                            className="flex items-center justify-center gap-3 bg-zinc-800/50 hover:bg-zinc-800 backdrop-blur-sm border-2 border-amber-600/30 hover:border-amber-600 text-amber-400 font-bold py-4 px-8 rounded-xl transition-all duration-300"
+                            className="flex items-center justify-center gap-2 sm:gap-3 bg-zinc-800/50 hover:bg-zinc-800 backdrop-blur-sm border-2 border-amber-600/30 hover:border-amber-600 text-amber-400 font-bold py-3 sm:py-4 px-6 sm:px-8 rounded-xl transition-all duration-300"
                         >
-                            <Grid3x3 className="w-5 h-5" />
-                            <span>Ver Galería</span>
+                            <Grid3x3 className="w-4 h-4 sm:w-5 sm:h-5" />
+                            <span className="text-sm sm:text-base">Ver Galería</span>
                         </a>
                     </div>
 
-                    <div className="flex gap-4 mt-8">
+                    {/* Redes sociales - RESPONSIVE */}
+                    <div className="flex gap-3 sm:gap-4 mt-6 sm:mt-8">
                         <a
                             href={`https://instagram.com/${storeConfig.instagram}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="p-3 bg-zinc-900/70 backdrop-blur-sm rounded-full hover:bg-linear-to-br hover:from-purple-600 hover:to-pink-600 transition-all duration-300 text-stone-300 hover:text-white hover:scale-110"
+                            className="p-2 sm:p-3 bg-zinc-900/70 backdrop-blur-sm rounded-full hover:bg-linear-to-br hover:from-purple-600 hover:to-pink-600 transition-all duration-300 text-stone-300 hover:text-white hover:scale-110"
                         >
-                            <Instagram className="w-5 h-5" />
+                            <Instagram className="w-4 h-4 sm:w-5 sm:h-5" />
                         </a>
                         <a
                             href={`https://facebook.com/${storeConfig.facebook}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="p-3 bg-zinc-900/70 backdrop-blur-sm rounded-full hover:bg-blue-600 transition-all duration-300 text-stone-300 hover:text-white hover:scale-110"
+                            className="p-2 sm:p-3 bg-zinc-900/70 backdrop-blur-sm rounded-full hover:bg-blue-600 transition-all duration-300 text-stone-300 hover:text-white hover:scale-110"
                         >
-                            <Facebook className="w-5 h-5" />
+                            <Facebook className="w-4 h-4 sm:w-5 sm:h-5" />
                         </a>
                     </div>
                 </div>
 
-                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+                {/* Indicador de scroll - SOLO EN DESKTOP */}
+                <div className="hidden md:block absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
                     <ChevronDown className="w-8 h-8 text-amber-500/50" />
                 </div>
             </section>
-
             {/* Sección de categorías rápidas */}
             <section className="py-12 bg-zinc-900/30 border-y border-zinc-800">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -396,73 +402,73 @@ export default function NicolapsoTatuajesPage() {
                 </div>
             </section>
 
-            {/* Footer */}
             <footer className="py-12 bg-zinc-950 border-t border-zinc-800">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="grid md:grid-cols-2 gap-12 items-center">
-                        <div className="relative">
-                            <div className="aspect-square rounded-2xl overflow-hidden border-4 border-amber-600/20 shadow-2xl shadow-amber-900/30 bg-linear-to-br from-zinc-900 to-stone-900 flex items-center justify-center">
-                                <div className="text-center p-8">
-                                    <Image
-                                        src="/nicolapso/nico.jpeg" 
-                                        alt="Nicolapso - Tatuador"
-                                        width={500}
-                                        height={500}
-                                        className="w-full h-full object-cover"
-                                        priority 
-                                    />
-                                </div>
+                    <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-start">
+                        {/* IMAGEN DEL TATUADOR - CORREGIDA */}
+                        <div className="relative order-2 md:order-1">
+                            <div className="aspect-square max-w-md mx-auto md:max-w-none rounded-2xl overflow-hidden border-4 border-amber-600/20 shadow-2xl shadow-amber-900/30 bg-linear-to-br from-zinc-900 to-stone-900">
+                                <Image
+                                    src="/nicolapso/nico.jpeg" 
+                                    alt="Nicolapso - Tatuador"
+                                    width={600}
+                                    height={600}
+                                    className="w-full h-full object-cover object-center"
+                                    priority 
+                                />
                             </div>
-                            <div className="absolute -bottom-6 -right-6 bg-linear-to-br from-amber-600 to-amber-700 text-white p-6 rounded-2xl shadow-xl">
-                                <p className="text-sm font-semibold mb-1">Especializado en</p>
-                                <p className="text-2xl font-bold">TRAD TATTOS</p>
+                            {/* Etiqueta de especialización - RESPONSIVE */}
+                            <div className="absolute -bottom-4 -right-4 sm:-bottom-6 sm:-right-6 bg-linear-to-br from-amber-600 to-amber-700 text-white p-4 sm:p-6 rounded-2xl shadow-xl max-w-[280px] sm:max-w-none">
+                                <p className="text-xs sm:text-sm font-semibold mb-1">Especializado en</p>
+                                <p className="text-lg sm:text-2xl font-bold leading-tight">Tatuaje blackwork y tradicional</p>
                             </div>
                         </div>
 
-                        <div>
+                        {/* TEXTO - CORREGIDO */}
+                        <div className="order-1 md:order-2">
                             <h2 className="text-3xl md:text-4xl font-bold text-stone-100 mb-4">
                                 Sobre Mí
                             </h2>
-                            <p className="text-stone-300 mb-6 text-lg leading-relaxed">
+                            <p className="text-stone-300 mb-6 text-base sm:text-lg leading-relaxed">
                                 Soy Nicolapso, tatuador especializado en técnicas de{' '}
-                                <span className="text-amber-400 font-semibold">BLACK TATTOS</span> y{' '}
-                                <span className="text-amber-400 font-semibold">TRAD TATTOS</span>. 
+                                <span className="text-amber-400 font-semibold">Tatuaje blackwork</span> y{' '}
+                                <span className="text-amber-400 font-semibold">Tatuaje tradicional</span>. 
                                 Con más de 10 años de experiencia, me dedico a transformar tus ideas 
                                 en arte corporal único que cuente tu historia.
                             </p>
 
                             <div className="space-y-4 mb-8">
                                 <div className="flex items-start gap-4">
-                                    <div className="p-3 bg-amber-600/20 rounded-xl">
-                                        <Sparkles className="w-6 h-6 text-amber-400" />
+                                    <div className="p-3 bg-amber-600/20 rounded-xl shrink-0">
+                                        <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-amber-400" />
                                     </div>
                                     <div>
-                                        <h3 className="font-semibold text-stone-100 mb-1">Diseños 100% Personalizados</h3>
-                                        <p className="text-sm text-stone-400">
-                                            Cada tatuaje es único, creado específicamente para ti a partir de tus ideas
+                                        <h3 className="font-semibold text-stone-100 mb-1 text-sm sm:text-base">Diseños Personalizados</h3>
+                                        <p className="text-xs sm:text-sm text-stone-400">
+                                            Cada tatuaje es único y creado específicamente para ti
                                         </p>
                                     </div>
                                 </div>
 
                                 <div className="flex items-start gap-4">
-                                    <div className="p-3 bg-amber-600/20 rounded-xl">
-                                        <Award className="w-6 h-6 text-amber-400" />
+                                    <div className="p-3 bg-amber-600/20 rounded-xl shrink-0">
+                                        <Award className="w-5 h-5 sm:w-6 sm:h-6 text-amber-400" />
                                     </div>
                                     <div>
-                                        <h3 className="font-semibold text-stone-100 mb-1">Experiencia Garantizada</h3>
-                                        <p className="text-sm text-stone-400">
+                                        <h3 className="font-semibold text-stone-100 mb-1 text-sm sm:text-base">Experiencia Garantizada</h3>
+                                        <p className="text-xs sm:text-sm text-stone-400">
                                             Más de 10 años perfeccionando técnicas avanzadas de tatuaje
                                         </p>
                                     </div>
                                 </div>
 
                                 <div className="flex items-start gap-4">
-                                    <div className="p-3 bg-amber-600/20 rounded-xl">
-                                        <MapPin className="w-6 h-6 text-amber-400" />
+                                    <div className="p-3 bg-amber-600/20 rounded-xl shrink-0">
+                                        <MapPin className="w-5 h-5 sm:w-6 sm:h-6 text-amber-400" />
                                     </div>
                                     <div>
-                                        <h3 className="font-semibold text-stone-100 mb-1">Studio Profesional</h3>
-                                        <p className="text-sm text-stone-400">
+                                        <h3 className="font-semibold text-stone-100 mb-1 text-sm sm:text-base">Studio Profesional</h3>
+                                        <p className="text-xs sm:text-sm text-stone-400">
                                             Ambiente cómodo, seguro y esterilizado en Santiago
                                         </p>
                                     </div>
@@ -473,9 +479,9 @@ export default function NicolapsoTatuajesPage() {
                                 href={whatsappLink}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-3 bg-linear-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 shadow-lg shadow-green-900/50 hover:scale-105"
+                                className="inline-flex items-center gap-2 sm:gap-3 bg-linear-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 text-white font-semibold py-3 sm:py-4 px-6 sm:px-8 rounded-xl transition-all duration-300 shadow-lg shadow-green-900/50 hover:scale-105 text-sm sm:text-base"
                             >
-                                <MessageCircle className="w-5 h-5" />
+                                <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5" />
                                 <span>Consulta Disponibilidad</span>
                             </a>
                         </div>

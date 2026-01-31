@@ -82,13 +82,6 @@ export default function NicolapsoLayout({
                             >
                                 Sobre Mí
                             </Link>
-                            {/* ELIMINADO: Link de FAQ */}
-                            {/* <Link
-                                href="/stores/nicolapso#faq"
-                                className="text-stone-300 hover:text-amber-400 transition-colors text-sm font-medium"
-                            >
-                                FAQ
-                            </Link> */}
                         </nav>
 
                         {/* Acciones */}
@@ -142,13 +135,6 @@ export default function NicolapsoLayout({
                         >
                             Sobre Mí
                         </Link>
-                        {/* ELIMINADO: Link de FAQ mobile */}
-                        {/* <Link
-                            href="/stores/nicolapso#faq"
-                            className="text-stone-400 hover:text-amber-400 transition-colors text-sm whitespace-nowrap"
-                        >
-                            FAQ
-                        </Link> */}
                     </div>
                 </div>
             </header>
@@ -178,8 +164,7 @@ export default function NicolapsoLayout({
                                 </div>
                             </div>
                             <p className="text-stone-400 mb-4 text-sm">
-                                Especializado en técnicas de trad-tatto y black-tatto. Cada diseño es una obra única 
-                                creada específicamente para ti.
+                                Especializado en técnicas de Tatuaje blackwork y tatuaje tradicional.
                             </p>
                             <div className="flex gap-3">
                                 <a
@@ -242,15 +227,6 @@ export default function NicolapsoLayout({
                                         Sobre Mí
                                     </Link>
                                 </li>
-                                {/* ELIMINADO: Link de FAQ en footer */}
-                                {/* <li>
-                                    <Link
-                                        href="/stores/nicolapso#faq"
-                                        className="text-stone-400 hover:text-amber-400 transition-colors text-sm"
-                                    >
-                                        Preguntas Frecuentes
-                                    </Link>
-                                </li> */}
                                 <li>
                                     <Link
                                         href="/"
