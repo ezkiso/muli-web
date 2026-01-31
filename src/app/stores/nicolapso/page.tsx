@@ -403,8 +403,14 @@ export default function NicolapsoTatuajesPage() {
                         <div className="relative">
                             <div className="aspect-square rounded-2xl overflow-hidden border-4 border-amber-600/20 shadow-2xl shadow-amber-900/30 bg-linear-to-br from-zinc-900 to-stone-900 flex items-center justify-center">
                                 <div className="text-center p-8">
-                                    <div className="text-8xl mb-4">🎨</div>
-                                    <p className="text-stone-400 text-sm">Foto del artista</p>
+                                    <Image
+                                        src="/nicolapso/nico.jpeg" 
+                                        alt="Nicolapso - Tatuador"
+                                        width={500}
+                                        height={500}
+                                        className="w-full h-full object-cover"
+                                        priority 
+                                    />
                                 </div>
                             </div>
                             <div className="absolute -bottom-6 -right-6 bg-linear-to-br from-amber-600 to-amber-700 text-white p-6 rounded-2xl shadow-xl">
