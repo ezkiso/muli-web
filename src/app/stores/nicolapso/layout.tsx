@@ -21,6 +21,9 @@ export const metadata: Metadata = {
         address: false,
         telephone: false,
     },
+    icons: {
+        icon: '/nicolapso/favicon.ico',
+    },
     metadataBase: new URL('https://nicolapso.cl'),
     alternates: {
         canonical: '/stores/nicolapso',
@@ -47,11 +50,6 @@ export const metadata: Metadata = {
         description: 'Tatuajes blackwork y tradicional personalizados en Santiago, Chile. Más de 10 años de experiencia.',
         images: ['/nicolapso/icon.jpg'],
         creator: '@nicolapso',
-    },
-    icons: {
-        icon: '/nicolapso/icon.jpg',
-        shortcut: '/nicolapso/icon.jpg',
-        apple: '/nicolapso/icon.jpg',
     },
     robots: {
         index: true,
