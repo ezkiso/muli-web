@@ -69,8 +69,97 @@ export default function NicolapsoTatuajesPage() {
     const whatsappLink = `https://wa.me/${storeConfig.whatsapp?.replace(/[^\d]/g, '')}?text=Hola!%20Me%20interesa%20agendar%20una%20cita%20para%20un%20tatuaje`;
     
     return (
-        
-        <div className="min-h-screen bg-linear-to-br from-stone-950 via-zinc-950 to-neutral-950">
+        <>
+            {/* Structured Data - LocalBusiness */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        '@context': 'https://schema.org',
+                        '@type': 'LocalBusiness',
+                        name: 'Nicolapso Tatuajes',
+                        description: 'Tatuajes blackwork y tradicional personalizados en Santiago, Chile. Más de 10 años de experiencia creando diseños únicos de arte corporal.',
+                        url: 'https://nicolapso.cl/stores/nicolapso',
+                        telephone: storeConfig.whatsapp,
+                        address: {
+                            '@type': 'PostalAddress',
+                            addressLocality: 'Santiago',
+                            addressCountry: 'CL',
+                        },
+                        geo: {
+                            '@type': 'GeoCoordinates',
+                            addressLocality: 'Santiago',
+                            addressCountry: 'CL',
+                        },
+                        openingHours: 'Mo-Su 10:00-20:00',
+                        priceRange: '$$$',
+                        image: 'https://nicolapso.cl/nicolapso/icon.jpg',
+                        sameAs: [
+                            `https://instagram.com/${storeConfig.instagram}`,
+                            `https://facebook.com/${storeConfig.facebook}`,
+                        ],
+                    }),
+                }}
+            />
+
+            {/* Structured Data - TattooArtist */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        '@context': 'https://schema.org',
+                        '@type': 'Person',
+                        name: 'Nicolapso',
+                        jobTitle: 'Tatuador Profesional',
+                        description: 'Tatuador especializado en técnicas de Tatuaje blackwork y Tatuaje tradicional. Con más de 10 años de experiencia.',
+                        url: 'https://nicolapso.cl/stores/nicolapso',
+                        image: 'https://nicolapso.cl/nicolapso/nico.jpeg',
+                        worksFor: {
+                            '@type': 'LocalBusiness',
+                            name: 'Nicolapso Tatuajes',
+                        },
+                        knowsAbout: [
+                            'Tatuaje blackwork',
+                            'Tatuaje tradicional',
+                            'Arte corporal',
+                            'Diseño de tatuajes',
+                        ],
+                    }),
+                }}
+            />
+
+            {/* Structured Data - BreadcrumbList */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        '@context': 'https://schema.org',
+                        '@type': 'BreadcrumbList',
+                        itemListElement: [
+                            {
+                                '@type': 'ListItem',
+                                position: 1,
+                                name: 'Inicio',
+                                item: 'https://nicolapso.cl',
+                            },
+                            {
+                                '@type': 'ListItem',
+                                position: 2,
+                                name: 'Tiendas',
+                                item: 'https://nicolapso.cl/stores',
+                            },
+                            {
+                                '@type': 'ListItem',
+                                position: 3,
+                                name: 'Nicolapso Tatuajes',
+                                item: 'https://nicolapso.cl/stores/nicolapso',
+                            },
+                        ],
+                    }),
+                }}
+            />
+
+            <div className="min-h-screen bg-linear-to-br from-stone-950 via-zinc-950 to-neutral-950">
             {/* Hero Section */}
             <section className="relative min-h-screen sm:min-h-[85vh] md:h-[80vh] overflow-hidden pt-20 sm:pt-0">
                 <div className="absolute inset-0 bg-linear-to-b from-transparent via-stone-950/50 to-stone-950" />
@@ -87,10 +176,11 @@ export default function NicolapsoTatuajesPage() {
                         <div className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-amber-600/30 shadow-2xl shadow-amber-900/50 bg-stone-900">
                             <Image
                                 src="/nicolapso/icon.jpg"
-                                alt="Nicolapso Tatuajes"
+                                alt="Logo de Nicolapso Tatuajes - Estudio de tatuaje blackwork y tradicional en Santiago, Chile"
                                 width={160}
                                 height={160}
                                 className="object-cover w-full h-full"
+                                priority
                             />
                         </div>
                         <div className="absolute -bottom-2 -right-2 bg-amber-500 text-white p-1.5 sm:p-2 rounded-full shadow-lg">
@@ -102,12 +192,12 @@ export default function NicolapsoTatuajesPage() {
                     <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold mb-3 sm:mb-4 bg-linear-to-r from-amber-200 via-amber-400 to-amber-200 bg-clip-text text-transparent drop-shadow-2xl px-4">
                         Nicolapso Tatuajes
                     </h1>
-                    
+
                     {/* Subtítulos - RESPONSIVE */}
-                    <p className="text-base sm:text-xl md:text-2xl text-stone-300 mb-2 sm:mb-3 max-w-2xl px-4">
+                    <h2 className="text-base sm:text-xl md:text-2xl text-stone-300 mb-2 sm:mb-3 max-w-2xl px-4 font-semibold">
                         Arte corporal personalizado
-                    </p>
-                    
+                    </h2>
+
                     <p className="text-sm sm:text-md text-stone-400 mb-6 sm:mb-8 max-w-xl px-4">
                         Tatuaje blackwork y tatuaje tradicional
                     </p>
@@ -171,8 +261,9 @@ export default function NicolapsoTatuajesPage() {
                 </div>
             </section>
             {/* Sección de categorías rápidas */}
-            <section className="py-12 bg-zinc-900/30 border-y border-zinc-800">
+            <section aria-labelledby="categorias-heading" className="py-12 bg-zinc-900/30 border-y border-zinc-800">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 id="categorias-heading" className="sr-only">Categorías de Tatuajes</h2>
                     <div className="flex flex-wrap justify-center gap-4">
                         {TATTOO_CATEGORIES.map((category) => (
                             <button
@@ -198,16 +289,16 @@ export default function NicolapsoTatuajesPage() {
             </section>
 
             {/* Sección de galería */}
-            <section id="galeria" className="py-16">
+            <section id="galeria" aria-labelledby="galeria-heading" className="py-16">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="mb-8">
-                        <h2 className="text-3xl md:text-4xl font-bold text-stone-100 mb-2">
+                    <header className="mb-8">
+                        <h2 id="galeria-heading" className="text-3xl md:text-4xl font-bold text-stone-100 mb-2">
                             Galería de Trabajos
                         </h2>
                         <p className="text-stone-400">
                             Explora nuestros diseños y trabajos realizados
                         </p>
-                    </div>
+                    </header>
 
                     <div className="mb-8 space-y-4">
                         <div className="flex flex-col md:flex-row gap-4">
@@ -338,16 +429,16 @@ export default function NicolapsoTatuajesPage() {
 
 
             {/* Sección de proceso */}
-            <section className="py-16">
+            <section aria-labelledby="proceso-heading" className="py-16">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center mb-12">
-                        <h2 className="text-3xl md:text-4xl font-bold text-stone-100 mb-3">
+                    <header className="text-center mb-12">
+                        <h2 id="proceso-heading" className="text-3xl md:text-4xl font-bold text-stone-100 mb-3">
                             Cómo Funciona
                         </h2>
                         <p className="text-stone-400 max-w-2xl mx-auto">
                             El proceso para conseguir tu tatuaje personalizado es simple
                         </p>
-                    </div>
+                    </header>
 
                     <div className="grid md:grid-cols-4 gap-8">
                         {[
@@ -397,19 +488,19 @@ export default function NicolapsoTatuajesPage() {
                 </div>
             </section>
 
-            <footer className="py-12 bg-zinc-950 border-t border-zinc-800">
+            <footer aria-labelledby="sobre-mi-heading" className="py-12 bg-zinc-950 border-t border-zinc-800">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-start">
                         {/* IMAGEN DEL TATUADOR - CORREGIDA */}
                         <div className="relative order-2 md:order-1">
                             <div className="aspect-square max-w-md mx-auto md:max-w-none rounded-2xl overflow-hidden border-4 border-amber-600/20 shadow-2xl shadow-amber-900/30 bg-linear-to-br from-zinc-900 to-stone-900">
                                 <Image
-                                    src="/nicolapso/nico.jpeg" 
-                                    alt="Nicolapso - Tatuador"
+                                    src="/nicolapso/nico.jpeg"
+                                    alt="Nicolapso - Tatuador profesional especializado en blackwork y tatuaje tradicional con más de 10 años de experiencia en Santiago, Chile"
                                     width={600}
                                     height={600}
                                     className="w-full h-full object-cover object-center"
-                                    priority 
+                                    priority
                                 />
                             </div>
                             {/* Etiqueta de especialización - RESPONSIVE */}
@@ -421,7 +512,7 @@ export default function NicolapsoTatuajesPage() {
 
                         {/* TEXTO - CORREGIDO */}
                         <div className="order-1 md:order-2">
-                            <h2 className="text-3xl md:text-4xl font-bold text-stone-100 mb-4">
+                            <h2 id="sobre-mi-heading" className="text-3xl md:text-4xl font-bold text-stone-100 mb-4">
                                 Sobre Mí
                             </h2>
                             <p className="text-stone-300 mb-6 text-base sm:text-lg leading-relaxed">
@@ -505,5 +596,6 @@ export default function NicolapsoTatuajesPage() {
                 <MessageCircle className="w-6 h-6" />
             </a>
         </div>
+        </>
     );
 }

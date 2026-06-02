@@ -10,14 +10,57 @@ const storeConfig = STORES.nicolapso;
 
 // Metadata para SEO
 export const metadata: Metadata = {
-    title: `${storeConfig.name} - Arte Corporal Personalizado`,
-    description: storeConfig.description,
-    icons: '/nicolapso/favicon.ico',
-    keywords: 'tatuajes, trad-tatto, black-tatto, tatuajes santiago, nicolapso, arte corporal, tatuajes personalizados',
+    title: 'Nicolapso Tatuajes | Arte Corporal Personalizado en Santiago, Chile',
+    description: 'Tatuajes blackwork y tradicional personalizados en Santiago, Chile. Más de 10 años de experiencia creando diseños únicos de arte corporal. Agenda tu cita hoy.',
+    keywords: ['tatuajes', 'tatuaje blackwork', 'tatuaje tradicional', 'tatuajes Santiago', 'arte corporal', 'tatuador Chile', 'diseños de tatuaje', 'tatuajes personalizados'],
+    authors: [{ name: 'Nicolapso Tatuajes' }],
+    creator: 'Nicolapso Tatuajes',
+    publisher: 'Nicolapso Tatuajes',
+    formatDetection: {
+        email: false,
+        address: false,
+        telephone: false,
+    },
+    metadataBase: new URL('https://nicolapso.cl'),
+    alternates: {
+        canonical: '/stores/nicolapso',
+    },
     openGraph: {
-        title: storeConfig.name,
-        description: storeConfig.description,
         type: 'website',
+        locale: 'es_CL',
+        url: 'https://nicolapso.cl/stores/nicolapso',
+        title: 'Nicolapso Tatuajes | Arte Corporal Personalizado en Santiago, Chile',
+        description: 'Tatuajes blackwork y tradicional personalizados en Santiago, Chile. Más de 10 años de experiencia creando diseños únicos de arte corporal.',
+        siteName: 'Nicolapso Tatuajes',
+        images: [
+            {
+                url: '/nicolapso/icon.jpg',
+                width: 1200,
+                height: 630,
+                alt: 'Nicolapso Tatuajes - Arte Corporal Personalizado',
+            },
+        ],
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'Nicolapso Tatuajes | Arte Corporal Personalizado',
+        description: 'Tatuajes blackwork y tradicional personalizados en Santiago, Chile. Más de 10 años de experiencia.',
+        images: ['/nicolapso/icon.jpg'],
+        creator: '@nicolapso',
+    },
+    robots: {
+        index: true,
+        follow: true,
+        googleBot: {
+            index: true,
+            follow: true,
+            'max-video-preview': -1,
+            'max-image-preview': 'large',
+            'max-snippet': -1,
+        },
+    },
+    verification: {
+        google: 'your-google-verification-code',
     },
 };
 
