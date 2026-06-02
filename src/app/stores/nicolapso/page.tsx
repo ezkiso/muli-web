@@ -169,11 +169,6 @@ export default function NicolapsoTatuajesPage() {
                         </a>
                     </div>
                 </div>
-
-                {/* Indicador de scroll - SOLO EN DESKTOP */}
-                <div className="hidden md:block absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-                    <ChevronDown className="w-8 h-8 text-amber-500/50" />
-                </div>
             </section>
             {/* Sección de categorías rápidas */}
             <section className="py-12 bg-zinc-900/30 border-y border-zinc-800">
