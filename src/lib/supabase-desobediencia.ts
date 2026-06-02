@@ -2,7 +2,16 @@
 // Cliente de Supabase específico para Desobediencia (BD separada)
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_DESOBEDIENCIA_URL!
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_DESOBEDIENCIA_ANON_KEY!
+let supabaseDesobedienciaClient: any = null
 
-export const supabaseDesobediencia = createClient(supabaseUrl, supabaseAnonKey)
+export function getSupabaseDesobediencia() {
+  if (supabaseDesobedienciaClient) return supabaseDesobedienciaClient
+
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_DESOBEDIENCIA_URL
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_DESOBEDIENCIA_ANON_KEY
+
+  if (!supabaseUrl || !supabaseAnonKey) return null
+
+  supabaseDesobedienciaClient = createClient(supabaseUrl, supabaseAnonKey)
+  return supabaseDesobedienciaClient
+}

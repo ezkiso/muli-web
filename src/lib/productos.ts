@@ -1,5 +1,5 @@
 // src/lib/productos.ts
-import { supabase } from './supabase'
+import { getSupabase } from './supabase'
 
 // ============================================
 // TIPOS
@@ -162,11 +162,13 @@ export function obtenerEstadoStockTalla(
  * Obtener todos los productos con sus variantes
  */
 export async function getProductosDesobediencia(): Promise<ProductoDesobediencia[]> {
+  const supabase = getSupabase()
+  if (!supabase) return []
   // Obtener productos
   const { data: productos, error: errorProductos } = await supabase
     .from('productos')
     .select('*')
-    .eq('store_id', 'desobediencia')  
+    .eq('store_id', 'desobediencia')
     .eq('active', true)
     .order('id', { ascending: true });
 
@@ -188,9 +190,9 @@ export async function getProductosDesobediencia(): Promise<ProductoDesobediencia
   }
 
   // Combinar productos con sus variantes
-  const productosConVariantes = productos.map(producto => ({
+  const productosConVariantes = productos.map((producto: any) => ({
     ...producto,
-    variantes: variantes?.filter(v => v.producto_id === producto.id) || []
+    variantes: variantes?.filter((v: any) => v.producto_id === producto.id) || []
   }));
 
   return productosConVariantes;
@@ -202,6 +204,8 @@ export async function getProductosDesobediencia(): Promise<ProductoDesobediencia
 export async function getProductoDesobedienciaById(
   id: number
 ): Promise<ProductoDesobediencia | null> {
+  const supabase = getSupabase()
+  if (!supabase) return null
   const { data: producto, error: errorProducto } = await supabase
     .from('productos_desobediencia')
     .select('*')
@@ -236,6 +240,8 @@ export async function getProductoDesobedienciaById(
 export async function getProductosPorCategoria(
   categoria: 'Manga Corta' | 'Manga Larga'
 ): Promise<ProductoDesobediencia[]> {
+  const supabase = getSupabase()
+  if (!supabase) return []
   const { data: productos, error: errorProductos } = await supabase
     .from('productos_desobediencia')
     .select('*')
@@ -250,15 +256,15 @@ export async function getProductosPorCategoria(
   if (!productos) return [];
 
   // Obtener variantes
-  const productosIds = productos.map(p => p.id);
+  const productosIds = productos.map((p: any) => p.id);
   const { data: variantes } = await supabase
     .from('producto_variantes')
     .select('*')
     .in('producto_id', productosIds);
 
-  return productos.map(producto => ({
+  return productos.map((producto: any) => ({
     ...producto,
-    variantes: variantes?.filter(v => v.producto_id === producto.id) || []
+    variantes: variantes?.filter((v: any) => v.producto_id === producto.id) || []
   }));
 }
 
@@ -266,6 +272,8 @@ export async function getProductosPorCategoria(
  * Obtener productos disponibles (con stock)
  */
 export async function getProductosDisponibles(): Promise<ProductoDesobediencia[]> {
+  const supabase = getSupabase()
+  if (!supabase) return []
   const { data: productos, error } = await supabase
     .from('productos_desobediencia')
     .select('*')
@@ -288,6 +296,8 @@ export async function updateStockTalla(
   talla: 'S' | 'M' | 'L' | 'XL' | 'XXL',
   nuevoStock: number
 ): Promise<boolean> {
+  const supabase = getSupabase()
+  if (!supabase) return false
   const { error } = await supabase
     .from('producto_variantes')
     .update({ stock: nuevoStock })
@@ -310,6 +320,8 @@ export async function reducirStockTalla(
   talla: 'S' | 'M' | 'L' | 'XL' | 'XXL',
   cantidad: number = 1
 ): Promise<boolean> {
+  const supabase = getSupabase()
+  if (!supabase) return false
   // Obtener stock actual
   const { data: variante, error: errorGet } = await supabase
     .from('producto_variantes')
@@ -351,6 +363,8 @@ export async function addProductoConVariantes(
   producto: Omit<ProductoDesobediencia, 'id' | 'total_stock'>,
   variantes: Omit<ProductoVariante, 'id' | 'producto_id'>[]
 ) {
+  const supabase = getSupabase()
+  if (!supabase) throw new Error('Supabase no configurado')
   // Insertar producto
   const { data: nuevoProducto, error: errorProducto } = await supabase
     .from('productos_desobediencia')
@@ -380,6 +394,8 @@ export async function addProductoConVariantes(
 // ============================================
 
 export async function getProductosFonoCopete(): Promise<ProductoFonoCopete[]> {
+  const supabase = getSupabase()
+  if (!supabase) return []
   const { data, error } = await supabase
     .from('productos_fono_copete')
     .select('*')
@@ -396,6 +412,8 @@ export async function getProductosFonoCopete(): Promise<ProductoFonoCopete[]> {
 export async function addProductoFonoCopete(
   producto: Omit<ProductoFonoCopete, 'id'>
 ) {
+  const supabase = getSupabase()
+  if (!supabase) throw new Error('Supabase no configurado')
   const { data, error } = await supabase
     .from('productos_fono_copete')
     .insert([producto])

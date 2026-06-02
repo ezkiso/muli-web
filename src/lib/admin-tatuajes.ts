@@ -1,5 +1,5 @@
 // src/lib/admin-tatuajes.ts
-import { supabaseNicolapso } from './supabase-nicolapso'
+import { getSupabaseNicolapso } from './supabase-nicolapso'
 import { TattooWork } from './tatuajes.types'
 
 export interface TattooUnificado extends Omit<TattooWork, 'id'> {
@@ -12,6 +12,8 @@ export interface TattooUnificado extends Omit<TattooWork, 'id'> {
 
 // ——— Leer tatuajes de una tienda ———
 export async function getTatuajesStore(storeId: string): Promise<TattooUnificado[]> {
+  const supabaseNicolapso = getSupabaseNicolapso()
+  if (!supabaseNicolapso) return []
   const { data, error } = await supabaseNicolapso
     .from('tatuajes')
     .select('*')
@@ -26,6 +28,8 @@ export async function getTatuajesStore(storeId: string): Promise<TattooUnificado
 export async function createTatuaje(
   tatuaje: Omit<TattooUnificado, 'id' | 'created_at' | 'updated_at'>
 ): Promise<TattooUnificado> {
+  const supabaseNicolapso = getSupabaseNicolapso()
+  if (!supabaseNicolapso) throw new Error('Supabase Nicolapso no configurado')
   const { data, error } = await supabaseNicolapso
     .from('tatuajes')
     .insert([tatuaje])
@@ -41,6 +45,8 @@ export async function updateTatuaje(
   id: number,
   tatuaje: Partial<TattooUnificado>
 ): Promise<TattooUnificado> {
+  const supabaseNicolapso = getSupabaseNicolapso()
+  if (!supabaseNicolapso) throw new Error('Supabase Nicolapso no configurado')
   const { data, error } = await supabaseNicolapso
     .from('tatuajes')
     .update({ ...tatuaje, updated_at: new Date().toISOString() })
@@ -54,12 +60,16 @@ export async function updateTatuaje(
 
 // ——— Eliminar tatuaje ———
 export async function deleteTatuaje(id: number): Promise<void> {
+  const supabaseNicolapso = getSupabaseNicolapso()
+  if (!supabaseNicolapso) throw new Error('Supabase Nicolapso no configurado')
   const { error } = await supabaseNicolapso.from('tatuajes').delete().eq('id', id)
   if (error) throw error
 }
 
 // ——— Activar / desactivar tatuaje ———
 export async function toggleTatuajeActivo(id: number, available: boolean): Promise<void> {
+  const supabaseNicolapso = getSupabaseNicolapso()
+  if (!supabaseNicolapso) throw new Error('Supabase Nicolapso no configurado')
   const { error } = await supabaseNicolapso
     .from('tatuajes')
     .update({ available })
@@ -69,6 +79,8 @@ export async function toggleTatuajeActivo(id: number, available: boolean): Promi
 
 // ——— Subir imagen al bucket ———
 export async function uploadTatuajeImagen(file: File, storeId: string): Promise<string> {
+  const supabaseNicolapso = getSupabaseNicolapso()
+  if (!supabaseNicolapso) throw new Error('Supabase Nicolapso no configurado')
   const ext = file.name.split('.').pop()
   const path = `${storeId}/tatuajes/${Date.now()}.${ext}`
 

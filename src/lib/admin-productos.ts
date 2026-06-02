@@ -1,5 +1,5 @@
 // src/lib/admin-productos.ts
-import { supabase } from './supabase'
+import { getSupabase } from './supabase'
 
 export interface ProductoUnificado {
   id?: number
@@ -24,6 +24,8 @@ export interface VarianteUnificada {
 
 // ——— Leer productos de una tienda (con variantes) ———
 export async function getProductosStore(storeId: string): Promise<(ProductoUnificado & { variantes: VarianteUnificada[] })[]> {
+  const supabase = getSupabase()
+  if (!supabase) return []
   const { data: productos, error } = await supabase
     .from('productos')
     .select('*')
@@ -51,6 +53,8 @@ export async function createProducto(
   producto: Omit<ProductoUnificado, 'id'>,
   variantes: Omit<VarianteUnificada, 'id' | 'producto_id'>[]
 ): Promise<ProductoUnificado> {
+  const supabase = getSupabase()
+  if (!supabase) throw new Error('Supabase no configurado')
   const total_stock = variantes.reduce((sum, v) => sum + (v.stock || 0), 0)
 
   const { data: nuevo, error } = await supabase
@@ -78,6 +82,8 @@ export async function updateProducto(
   producto: Partial<ProductoUnificado>,
   variantes: VarianteUnificada[]
 ): Promise<ProductoUnificado> {
+  const supabase = getSupabase()
+  if (!supabase) throw new Error('Supabase no configurado')
   const total_stock = variantes.reduce((sum, v) => sum + (v.stock || 0), 0)
 
   const { data, error } = await supabase
@@ -105,12 +111,16 @@ export async function updateProducto(
 
 // ——— Eliminar producto ———
 export async function deleteProducto(id: number): Promise<void> {
+  const supabase = getSupabase()
+  if (!supabase) throw new Error('Supabase no configurado')
   const { error } = await supabase.from('productos').delete().eq('id', id)
   if (error) throw error
 }
 
 // ——— Activar / desactivar producto ———
 export async function toggleProductoActivo(id: number, active: boolean): Promise<void> {
+  const supabase = getSupabase()
+  if (!supabase) throw new Error('Supabase no configurado')
   const { error } = await supabase
     .from('productos')
     .update({ active })
@@ -120,6 +130,8 @@ export async function toggleProductoActivo(id: number, active: boolean): Promise
 
 // ——— Subir imagen al bucket ———
 export async function uploadImagen(file: File, storeId: string): Promise<string> {
+  const supabase = getSupabase()
+  if (!supabase) throw new Error('Supabase no configurado')
   const ext = file.name.split('.').pop()
   const path = `${storeId}/${Date.now()}.${ext}`
 
