@@ -48,6 +48,11 @@ export const metadata: Metadata = {
         images: ['/nicolapso/icon.jpg'],
         creator: '@nicolapso',
     },
+    icons: {
+        icon: '/nicolapso/icon.jpg',
+        shortcut: '/nicolapso/icon.jpg',
+        apple: '/nicolapso/icon.jpg',
+    },
     robots: {
         index: true,
         follow: true,
