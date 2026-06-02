@@ -1,3 +1,12 @@
+-- Crear tabla store_owners (para permisos de admin)
+CREATE TABLE IF NOT EXISTS store_owners (
+  id BIGSERIAL PRIMARY KEY,
+  user_id UUID NOT NULL,
+  store_id TEXT NOT NULL,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  UNIQUE(user_id, store_id)
+);
+
 -- Crear tabla de tatuajes
 CREATE TABLE IF NOT EXISTS tatuajes (
   id BIGSERIAL PRIMARY KEY,
@@ -18,9 +27,19 @@ CREATE TABLE IF NOT EXISTS tatuajes (
 );
 
 -- Crear índices
+CREATE INDEX IF NOT EXISTS idx_store_owners_user_id ON store_owners(user_id);
+CREATE INDEX IF NOT EXISTS idx_store_owners_store_id ON store_owners(store_id);
 CREATE INDEX IF NOT EXISTS idx_tatuajes_store_id ON tatuajes(store_id);
 CREATE INDEX IF NOT EXISTS idx_tatuajes_category ON tatuajes(category);
 CREATE INDEX IF NOT EXISTS idx_tatuajes_available ON tatuajes(available);
+
+-- Habilitar RLS en store_owners
+ALTER TABLE store_owners ENABLE ROW LEVEL SECURITY;
+
+-- Políticas para store_owners
+CREATE POLICY "Cualquiera puede ver store_owners"
+  ON store_owners FOR SELECT
+  USING (true);
 
 -- Habilitar RLS
 ALTER TABLE tatuajes ENABLE ROW LEVEL SECURITY;
