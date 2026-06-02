@@ -164,8 +164,10 @@ export function obtenerEstadoStockTalla(
 export async function getProductosDesobediencia(): Promise<ProductoDesobediencia[]> {
   // Obtener productos
   const { data: productos, error: errorProductos } = await supabase
-    .from('productos_desobediencia')
+    .from('productos')
     .select('*')
+    .eq('store_id', 'desobediencia')  
+    .eq('active', true)
     .order('id', { ascending: true });
 
   if (errorProductos) {
@@ -177,7 +179,7 @@ export async function getProductosDesobediencia(): Promise<ProductoDesobediencia
 
   // Obtener variantes para todos los productos
   const { data: variantes, error: errorVariantes } = await supabase
-    .from('producto_variantes')
+    .from('producto_variantes_gen')
     .select('*')
     .order('talla', { ascending: true });
 
