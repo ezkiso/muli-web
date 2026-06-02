@@ -191,7 +191,95 @@ export default function DesobedienciaFull() {
     }
 
     return (
-        <div className="min-h-screen bg-black">
+        <>
+            {/* Structured Data - LocalBusiness */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        '@context': 'https://schema.org',
+                        '@type': 'LocalBusiness',
+                        name: 'Desobediencia',
+                        description: 'Tienda de serigrafía en Santiago con diseños únicos de bandas post-punk y alternativas. Poleras, hoodies y más con estampados de alta calidad.',
+                        url: 'https://desobediencia.cl/stores/desobediencia',
+                        address: {
+                            '@type': 'PostalAddress',
+                            addressLocality: 'Santiago',
+                            addressCountry: 'CL',
+                        },
+                        geo: {
+                            '@type': 'GeoCoordinates',
+                            addressLocality: 'Santiago',
+                            addressCountry: 'CL',
+                        },
+                        openingHours: 'Mo-Su 10:00-20:00',
+                        priceRange: '$$',
+                        image: 'https://desobediencia.cl/desobediencia/icon.png',
+                        sameAs: [
+                            'https://www.facebook.com/criakuerv?locale=es_LA',
+                        ],
+                    }),
+                }}
+            />
+
+            {/* Structured Data - Store/ClothingStore */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        '@context': 'https://schema.org',
+                        '@type': 'ClothingStore',
+                        name: 'Desobediencia',
+                        description: 'Tienda de serigrafía especializada en diseños post-punk y alternativas. Poleras, hoodies y camisetas con estampados de alta calidad.',
+                        url: 'https://desobediencia.cl/stores/desobediencia',
+                        image: 'https://desobediencia.cl/desobediencia/icon.png',
+                        address: {
+                            '@type': 'PostalAddress',
+                            addressLocality: 'Santiago',
+                            addressCountry: 'CL',
+                        },
+                        priceRange: '$$',
+                        offers: {
+                            '@type': 'AggregateOffer',
+                            priceCurrency: 'CLP',
+                            availability: 'https://schema.org/InStock',
+                        },
+                    }),
+                }}
+            />
+
+            {/* Structured Data - BreadcrumbList */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        '@context': 'https://schema.org',
+                        '@type': 'BreadcrumbList',
+                        itemListElement: [
+                            {
+                                '@type': 'ListItem',
+                                position: 1,
+                                name: 'Inicio',
+                                item: 'https://desobediencia.cl',
+                            },
+                            {
+                                '@type': 'ListItem',
+                                position: 2,
+                                name: 'Tiendas',
+                                item: 'https://desobediencia.cl/stores',
+                            },
+                            {
+                                '@type': 'ListItem',
+                                position: 3,
+                                name: 'Desobediencia',
+                                item: 'https://desobediencia.cl/stores/desobediencia',
+                            },
+                        ],
+                    }),
+                }}
+            />
+
+            <div className="min-h-screen bg-black">
         <StoreSelector currentStoreId="serigrafia" />
 
         {/* Header */}
@@ -200,9 +288,9 @@ export default function DesobedienciaFull() {
             <div className="flex items-center justify-between py-4">
                 <div className="flex items-center gap-3">
                 <div className="w-12 h-12 relative">
-                    <Image 
+                    <Image
                     src="/desobediencia/icon.png"
-                    alt="Desobediencia Logo"
+                    alt="Logo de Desobediencia - Tienda de serigrafía post-punk y alternativa en Santiago, Chile"
                     width={48}
                     height={48}
                     className="object-contain"
@@ -256,14 +344,15 @@ export default function DesobedienciaFull() {
         </header>
 
         {/* Productos - PRIMERO */}
-        <section id="productos" className="py-16 bg-black">
+        <section id="productos" aria-labelledby="productos-heading" className="py-16 bg-black">
             <div className="container mx-auto px-4">
+                <h2 id="productos-heading" className="sr-only">Productos de Desobediencia</h2>
             {/* Logo y nombre circular como Jumpseller */}
             <div className="flex flex-col items-center mb-12">
                 <div className="w-32 h-32 rounded-full bg-gray-800 border-4 border-[#800020] overflow-hidden mb-6 relative">
-                <Image 
+                <Image
                     src="/desobediencia/icon.png"
-                    alt="Desobediencia"
+                    alt="Logo de Desobediencia - Tienda de serigrafía post-punk y alternativa con diseños únicos en Santiago, Chile"
                     fill
                     className="object-cover"
                     priority
@@ -338,9 +427,9 @@ export default function DesobedienciaFull() {
                     <div className={`bg-gray-800 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 relative ${
                     viewMode === 'list' ? 'w-48 h-48' : 'h-64'
                     }`}>
-                    <Image 
+                    <Image
                         src={product.image}
-                        alt={product.name}
+                        alt={`${product.name} - ${product.category} de Desobediencia, serigrafía post-punk y alternativa en Santiago, Chile`}
                         fill
                         className="object-contain p-4"
                     />
@@ -403,8 +492,9 @@ export default function DesobedienciaFull() {
         </section>
 
         {/* Beneficios */}
-        <section className="py-12 bg-gray-900 border-y border-gray-800">
+        <section aria-labelledby="beneficios-heading" className="py-12 bg-gray-900 border-y border-gray-800">
             <div className="container mx-auto px-4">
+                <h2 id="beneficios-heading" className="sr-only">Beneficios de Desobediencia</h2>
             <div className="grid md:grid-cols-4 gap-6">
                 <div className="text-center p-4">
                 <Truck className="w-10 h-10 mx-auto mb-3 text-[#800020]" />
@@ -431,10 +521,10 @@ export default function DesobedienciaFull() {
         </section>
 
         {/* Sobre Nosotros */}
-        <section id="nosotros" className="py-16 bg-black border-t border-gray-800">
+        <section id="nosotros" aria-labelledby="nosotros-heading" className="py-16 bg-black border-t border-gray-800">
             <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
-                <h2 className="text-4xl font-bold mb-6 text-white">Sobre Desobediencia</h2>
+                <h2 id="nosotros-heading" className="text-4xl font-bold mb-6 text-white">Sobre Desobediencia</h2>
                 <p className="text-xl text-gray-300 mb-8">
                 Nacimos de la pasión por la música alternativa, el post-punk y la cultura underground. 
                 Cada diseño es una declaración de identidad, una rebeldía visual que se lleva con orgullo.
@@ -462,9 +552,9 @@ export default function DesobedienciaFull() {
         </section>
 
         {/* Contacto */}
-        <section id="contacto" className="py-16 bg-gray-900 border-t border-gray-800">
+        <section id="contacto" aria-labelledby="contacto-heading" className="py-16 bg-gray-900 border-t border-gray-800">
             <div className="container mx-auto px-4">
-            <h2 className="text-4xl font-bold text-center mb-12 text-white">Contáctanos</h2>
+            <h2 id="contacto-heading" className="text-4xl font-bold text-center mb-12 text-white">Contáctanos</h2>
             <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
                 <div>
                 <h3 className="text-2xl font-bold mb-6 text-white">¿Tienes dudas sobre tu pedido?</h3>
@@ -598,9 +688,9 @@ export default function DesobedienciaFull() {
                 {/* Galería de imágenes */}
                 <div>
                     <div className="relative bg-gray-800 rounded-xl overflow-hidden mb-4" style={{ height: '400px' }}>
-                    <Image 
+                    <Image
                         src={selectedProduct.images?.[currentImageIndex] || selectedProduct.image}
-                        alt={selectedProduct.name}
+                        alt={`${selectedProduct.name} - ${selectedProduct.category} de Desobediencia, serigrafía post-punk y alternativa en Santiago, Chile`}
                         fill
                         className="object-contain p-8"
                     />
@@ -771,5 +861,6 @@ export default function DesobedienciaFull() {
         <ShoppingCartComponent isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
 
         </div>
+        </>
     );
 }
