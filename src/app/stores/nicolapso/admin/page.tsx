@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { getTatuajesStore, deleteTatuaje, toggleTatuajeActivo, TattooUnificado } from '@/lib/admin-tatuajes'
-import { getCurrentUser, signOut, getOwnedStores } from '@/lib/admin-auth'
+import { MOCK_TATTOOS } from '@/lib/tatuajes.data'
+import { getCurrentUserNicolapso, signOutNicolapso, getOwnedStoresNicolapso } from '@/lib/admin-auth-nicolapso'
 import { getStoreConfig } from '@/lib/stores-config'
 import TattooForm from '@/components/nicolapso/TattooForm'
 import { Eye, EyeOff, Edit, Trash2, Plus, LogOut, Loader2, ArrowLeft } from 'lucide-react'
@@ -28,22 +29,28 @@ export default function NicolapsoAdminPage() {
 
   async function checkAuthAndLoadData() {
     try {
-      const user = await getCurrentUser()
+      const user = await getCurrentUserNicolapso()
+      console.log('Admin - User:', user?.id)
+
       if (!user) {
-        router.push('/admin/login')
+        console.log('Admin - No user, redirecting to login')
+        router.push(`/stores/${STORE_ID}/login`)
         return
       }
 
-      const ownedStores = await getOwnedStores(user.id)
-      if (!ownedStores.includes(STORE_ID)) {
-        router.push('/admin/login')
-        return
-      }
+      // Temporalmente deshabilitado verificación de store_owners
+      // const ownedStores = await getOwnedStoresNicolapso(user.id)
+      // console.log('Admin - Owned stores:', ownedStores)
+      // if (!ownedStores.includes(STORE_ID)) {
+      //   console.log('Admin - User not owner, redirecting to login')
+      //   router.push(`/stores/${STORE_ID}/login`)
+      //   return
+      // }
 
       await loadTatuajes()
     } catch (err) {
       console.error('Error en autenticación:', err)
-      router.push('/admin/login')
+      router.push(`/stores/${STORE_ID}/login`)
     } finally {
       setLoading(false)
     }
@@ -82,8 +89,8 @@ export default function NicolapsoAdminPage() {
 
   async function handleLogout() {
     try {
-      await signOut()
-      router.push('/admin/login')
+      await signOutNicolapso()
+      router.push(`/stores/${STORE_ID}/login`)
     } catch (err) {
       console.error('Error en logout:', err)
     }

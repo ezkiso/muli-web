@@ -1,5 +1,5 @@
 // src/lib/admin-productos.ts
-import { supabase } from './supabase'
+import { supabaseDesobediencia } from './supabase-desobediencia'
 
 export interface ProductoUnificado {
   id?: number
@@ -24,7 +24,7 @@ export interface VarianteUnificada {
 
 // ——— Leer productos de una tienda (con variantes) ———
 export async function getProductosStore(storeId: string): Promise<(ProductoUnificado & { variantes: VarianteUnificada[] })[]> {
-  const { data: productos, error } = await supabase
+  const { data: productos, error } = await supabaseDesobediencia
     .from('productos')
     .select('*')
     .eq('store_id', storeId)
@@ -35,7 +35,7 @@ export async function getProductosStore(storeId: string): Promise<(ProductoUnifi
   const ids = (productos || []).map((p: ProductoUnificado) => p.id)
   if (ids.length === 0) return []
 
-  const { data: variantes } = await supabase
+  const { data: variantes } = await supabaseDesobediencia
     .from('producto_variantes_gen')
     .select('*')
     .in('producto_id', ids)
@@ -53,7 +53,7 @@ export async function createProducto(
 ): Promise<ProductoUnificado> {
   const total_stock = variantes.reduce((sum, v) => sum + (v.stock || 0), 0)
 
-  const { data: nuevo, error } = await supabase
+  const { data: nuevo, error } = await supabaseDesobediencia
     .from('productos')
     .insert([{ ...producto, total_stock }])
     .select()
@@ -62,7 +62,7 @@ export async function createProducto(
   if (error) throw error
 
   if (variantes.length > 0) {
-    const { error: varError } = await supabase
+    const { error: varError } = await supabaseDesobediencia
       .from('producto_variantes_gen')
       .insert(variantes.map(v => ({ ...v, producto_id: nuevo.id })))
 
@@ -80,7 +80,7 @@ export async function updateProducto(
 ): Promise<ProductoUnificado> {
   const total_stock = variantes.reduce((sum, v) => sum + (v.stock || 0), 0)
 
-  const { data, error } = await supabase
+  const { data, error } = await supabaseDesobediencia
     .from('productos')
     .update({ ...producto, total_stock, updated_at: new Date().toISOString() })
     .eq('id', id)
@@ -90,10 +90,10 @@ export async function updateProducto(
   if (error) throw error
 
   // Reemplazar variantes completas
-  await supabase.from('producto_variantes_gen').delete().eq('producto_id', id)
+  await supabaseDesobediencia.from('producto_variantes_gen').delete().eq('producto_id', id)
 
   if (variantes.length > 0) {
-    const { error: varError } = await supabase
+    const { error: varError } = await supabaseDesobediencia
       .from('producto_variantes_gen')
       .insert(variantes.map(v => ({ talla: v.talla, stock: v.stock, precio_extra: v.precio_extra || 0, producto_id: id })))
 
@@ -105,13 +105,13 @@ export async function updateProducto(
 
 // ——— Eliminar producto ———
 export async function deleteProducto(id: number): Promise<void> {
-  const { error } = await supabase.from('productos').delete().eq('id', id)
+  const { error } = await supabaseDesobediencia.from('productos').delete().eq('id', id)
   if (error) throw error
 }
 
 // ——— Activar / desactivar producto ———
 export async function toggleProductoActivo(id: number, active: boolean): Promise<void> {
-  const { error } = await supabase
+  const { error } = await supabaseDesobediencia
     .from('productos')
     .update({ active })
     .eq('id', id)
@@ -123,12 +123,12 @@ export async function uploadImagen(file: File, storeId: string): Promise<string>
   const ext = file.name.split('.').pop()
   const path = `${storeId}/${Date.now()}.${ext}`
 
-  const { error } = await supabase.storage
+  const { error } = await supabaseDesobediencia.storage
     .from('product-images')
     .upload(path, file, { upsert: true })
 
   if (error) throw error
 
-  const { data } = supabase.storage.from('product-images').getPublicUrl(path)
+  const { data } = supabaseDesobediencia.storage.from('product-images').getPublicUrl(path)
   return data.publicUrl
 }
